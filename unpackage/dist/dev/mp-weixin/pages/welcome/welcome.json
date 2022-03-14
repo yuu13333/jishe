@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "classfication": "/components/classfication/classfication",
+    "create-program": "/components/createProgram/createProgram"
+  }
+}

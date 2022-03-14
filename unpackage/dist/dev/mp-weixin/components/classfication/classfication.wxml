@@ -1,0 +1,1 @@
+<view class="content" style="height:100vh;"><view><image src="../../static/camera.png" data-event-opts="{{[['tap',[['camera']]]]}}" bindtap="__e"></image></view><view style="height:100rpx;"></view><view><image src="../../static/library.png" data-event-opts="{{[['tap',[['album']]]]}}" bindtap="__e"></image></view></view>
