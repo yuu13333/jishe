@@ -5282,12 +5282,127 @@ var render = function() {
         "v-uni-view",
         { staticClass: _vm._$g(1, "sc"), attrs: { _i: 1 } },
         [
-          _c("v-uni-view", { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } }),
-          _c("v-uni-view", { attrs: { _i: 3 } }, [_vm._v("总览")])
+          _c("v-uni-image", {
+            staticClass: _vm._$g(2, "sc"),
+            attrs: { src: _vm._$g(2, "a-src"), _i: 2 }
+          }),
+          _c("v-uni-view", {
+            staticStyle: { width: "15rpx" },
+            attrs: { _i: 3 }
+          }),
+          _c("v-uni-view", { attrs: { _i: 4 } }, [_vm._v("Collection 1")])
         ],
         1
       ),
-      _c("v-uni-view", { staticClass: _vm._$g(4, "sc"), attrs: { _i: 4 } })
+      _c(
+        "v-uni-view",
+        { staticClass: _vm._$g(5, "sc"), attrs: { _i: 5 } },
+        [
+          _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(6, "sc"), attrs: { _i: 6 } },
+            [
+              _c(
+                "v-uni-view",
+                {
+                  staticStyle: {
+                    color: "#000000",
+                    "font-size": "70rpx",
+                    "font-weight": "500"
+                  },
+                  attrs: { _i: 7 }
+                },
+                [_vm._v(_vm._$g(7, "t0-0"))]
+              ),
+              _c("v-uni-view", {
+                staticStyle: { height: "5rpx" },
+                attrs: { _i: 8 }
+              }),
+              _c(
+                "v-uni-view",
+                {
+                  staticStyle: {
+                    color: "#000000",
+                    "font-size": "30rpx",
+                    "font-weight": "500"
+                  },
+                  attrs: { _i: 9 }
+                },
+                [_vm._v("IMAGES")]
+              ),
+              _c("v-uni-view", {
+                staticStyle: { height: "30rpx" },
+                attrs: { _i: 10 }
+              }),
+              _c(
+                "v-uni-view",
+                {
+                  staticStyle: { color: "#007AFF", "font-size": "25rpx" },
+                  attrs: { _i: 11 }
+                },
+                [_vm._v("click here to check more.")]
+              )
+            ],
+            1
+          ),
+          _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(12, "sc"), attrs: { _i: 12 } },
+            [
+              _c(
+                "v-uni-view",
+                {
+                  staticStyle: {
+                    color: "#000000",
+                    "font-size": "70rpx",
+                    "font-weight": "500"
+                  },
+                  attrs: { _i: 13 }
+                },
+                [_vm._v(_vm._$g(13, "t0-0"))]
+              ),
+              _c("v-uni-view", {
+                staticStyle: { height: "5rpx" },
+                attrs: { _i: 14 }
+              }),
+              _c(
+                "v-uni-view",
+                {
+                  staticStyle: {
+                    color: "#000000",
+                    "font-size": "30rpx",
+                    "font-weight": "500"
+                  },
+                  attrs: { _i: 15 }
+                },
+                [_vm._v("CATRGORIES")]
+              ),
+              _c("v-uni-view", {
+                staticStyle: { height: "30rpx" },
+                attrs: { _i: 16 }
+              }),
+              _c(
+                "v-uni-view",
+                {
+                  staticStyle: { color: "#007AFF", "font-size": "25rpx" },
+                  attrs: { _i: 17 }
+                },
+                [_vm._v("click here to check more.")]
+              )
+            ],
+            1
+          ),
+          _c("v-uni-view", {
+            staticClass: _vm._$g(18, "sc"),
+            attrs: { _i: 18 }
+          }),
+          _c("v-uni-view", {
+            staticClass: _vm._$g(19, "sc"),
+            attrs: { _i: 19 }
+          })
+        ],
+        1
+      )
     ],
     1
   )
@@ -5378,9 +5493,19 @@ if(false) {}
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
+var ___CSS_LOADER_GET_URL_IMPORT___ = __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/lib/app-plus/getUrl.js */ 11);
+var ___CSS_LOADER_URL_IMPORT_0___ = __webpack_require__(/*! @/common/index/iconfont.eot?t=1645977761873 */ 12);
+var ___CSS_LOADER_URL_IMPORT_1___ = __webpack_require__(/*! @/common/index/iconfont.woff?t=1645977761873 */ 13);
+var ___CSS_LOADER_URL_IMPORT_2___ = __webpack_require__(/*! @/common/index/iconfont.ttf?t=1645977761873 */ 14);
+var ___CSS_LOADER_URL_IMPORT_3___ = __webpack_require__(/*! @/common/index/iconfont.svg?t=1645977761873 */ 15);
 exports = ___CSS_LOADER_API_IMPORT___(false);
+var ___CSS_LOADER_URL_REPLACEMENT_0___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_0___);
+var ___CSS_LOADER_URL_REPLACEMENT_1___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_0___, { hash: "#iefix" });
+var ___CSS_LOADER_URL_REPLACEMENT_2___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_1___);
+var ___CSS_LOADER_URL_REPLACEMENT_3___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_2___);
+var ___CSS_LOADER_URL_REPLACEMENT_4___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_3___, { hash: "#iconfont" });
 // Module
-exports.push([module.i, "\n.content{\n\twidth:100%;\n\theight:100vh;\n}\n.header{\n\theight:10%;\n\twidth:100%;\n\tborder-bottom: 1rpx solid #C0C0C0;\n}\n\n\n", ""]);
+exports.push([module.i, "@font-face {\n  font-family: \"iconfont\"; /* Project id 3198017 */\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + "); /* IE9 */\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") format('embedded-opentype'), \n       url('data:application/x-font-woff2;charset=utf-8;base64,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') format('woff2'),\n       url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ") format('woff'),\n       url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ") format('truetype'),\n       url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ") format('svg');\n}\n.iconfont {\n  font-family: \"iconfont\" !important;\n  font-size: 46px;\n  color:#FFFFFF;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n.icon-arrow:before {\n  content: \"\\e619\";\n}\n.icon-arrow-right:before {\n  content: \"\\e665\";\n}\n.icon-weibiaoti1:before {\n  content: \"\\e638\";\n}\n.icon-instagram:before {\n  content: \"\\e607\";\n}\n.icon-shujujiguanli:before {\n  content: \"\\e641\";\n}\n.icon-wrong-b:before {\n  content: \"\\e693\";\n}\n.icon-xiangji:before {\n  content: \"\\e651\";\n}\n.icon-wrong:before {\n  content: \"\\e633\";\n}\n.icon-24gf-camera:before {\n  content: \"\\e9f3\";\n}\n.icon-tuxiangshibie___:before {\n  content: \"\\e600\";\n}\n.icon-xiangmu:before {\n  content: \"\\e60a\";\n}\n.icon-xiangji1:before {\n  content: \"\\e661\";\n}\n.icon-xiangjizhaopianpaizhao:before {\n  content: \"\\e61c\";\n}\n.icon-instagramxiangji:before {\n  content: \"\\e6dd\";\n}\n.icon-xiangmuguanli:before {\n  content: \"\\e68c\";\n}\n.icon-a-ziyuan63:before {\n  content: \"\\e616\";\n}\n.content{\n\twidth:100%;\n\theight:100vh;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n}\n.header{\n\theight:8%;\n\twidth:100%;\n\tborder-bottom: 1rpx solid #F5F5F5;\n\tdisplay: flex;\n\tjustify-content: flex-start;\n\talign-items: center;\n}\n.info{\n\twidth:100%;\n\tflex:1 1 auto;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: space-around;\n\tflex-direction: column;\n}\n.programAvatar{\n\twidth:80rpx;\n\theight:80rpx;\n\tborder-radius: 80rpx;\n}\n.imageNum{\n\theight:20%;\n\twidth:80%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n\tbackground-color: #F5F5F5;\n\tborder-radius: 20rpx;\n}\n.categories{\n\theight:20%;\n\twidth:80%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n\tbackground-color: #F5F5F5;\n\tborder-radius: 20rpx;\n}\n.lastTime{\n\theight:10%;\n\twidth:100%;\n}\n.echarts{\n\theight:30%;\n\twidth:100%;\n}\n\n\n", ""]);
 // Exports
 module.exports = exports;
 
