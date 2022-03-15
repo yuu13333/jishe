@@ -132,6 +132,11 @@
 								}, 1000)
 							}
 						},
+			clickCard(){
+				uni.navigateTo({
+					url:"../../pages/ProgramInfo/ProgramInfo",
+				})
+			}
 			},
 		}
 </script>

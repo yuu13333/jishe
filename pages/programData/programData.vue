@@ -1,59 +1,13 @@
 <template>
 	<view class="content">
-		<view class="header">
-			<view style="width:35rpx;"></view><image class="programAvatar" src="../../static/logo.png"></image><view style="width:15rpx;"></view><view>Collection 1</view>
+		<view class="header" :class="ismanage?'ismanage':'nomanage'">
+			<view style="width:35rpx;"></view><image class="programAvatar" src="../../static/logo.png"></image><view style="width:35rpx;"></view><view style="display: flex;flex-direction: column;justify-content: space-around;height:80%;"><view>Collection 1</view><view>Description</view></view>
+			<view style="width:200rpx;"></view>
+			<view @click="tomanage()" :class="ismanage?'ismanage':'nomanage'" class="iconfont icon-shujujiguanli" style="font-size: 80rpx;"></view>
 		</view>		
 		<view class="info">
-				<scroll-view style="width:100%;display: flex;flex-direction: column;align-items: center;justify-content: center;" scroll-y="true">
-				<view style="height: 40rpx;"></view>
-				<view style="width:100%;display: flex;flex-direction: column;align-items: center;justify-content: center;">
-				<view class="imageNum">
-					<view style="color: #000000;font-size: 70rpx;font-weight: 500;">
-						{{imgNum}}
-					</view>
-					<view style="height:5rpx;"></view>
-					<view style="color:#000000;font-size: 30rpx;font-weight: 500;">
-						IMAGES
-					</view>
-					<view style="height: 30rpx;"></view>
-					<view style="color:#007AFF;font-size: 25rpx;">
-						click here to check more.
-					</view>
-				</view>
-				</view>
-				<view style="height: 40rpx;"></view>
-				<view style="width:100%;display: flex;flex-direction: column;align-items: center;justify-content: center;">
-				<view class="categories">
-					<view style="color: #000000;font-size: 70rpx;font-weight: 500;">
-						{{typeNum}}
-					</view>
-					<view style="height:5rpx;"></view>
-					<view style="color:#000000;font-size: 30rpx;font-weight: 500;">
-						CATEGORIES
-					</view>
-					<view style="height:30rpx;"></view>
-					<view style="color:#007AFF;font-size: 25rpx;">
-						click here to check more.
-					</view>
-				</view>
-				</view>
-				<view style="height: 40rpx;"></view>
-				<view class="echarts">
-					<view class="charts-box">
-					  <qiun-data-charts type="column" :chartData="chartData" />
-					</view>
-					<view style="height:30rpx;"></view>
-					<view class="charts-box">
-					  <qiun-data-charts type="pie" :chartData="chartData1" />
-					</view>
-				</view>
-				<view style="height: 50rpx;"></view>
-				<view style="width:100%;"><button type="default" style="width:80%;height:100rpx;background-color: #007AFF;color:#FFFFFF">Start Labeling</button></view>
-				<view style="height: 60rpx;"></view>
-				<view class="lastTime" style="color:#A5A5A5;width:100%;display: flex;align-items: center;justify-content: center;font-size: 25rpx;">
-					最后修改时间：{{String(new Date()).slice(0,-14)}}
-				</view>
-				</scroll-view>
+			<echarts v-if="!ismanage"></echarts>
+			<programImgManage v-if="ismanage"></programImgManage>
 		</view>
 	</view>
 </template>
@@ -66,6 +20,7 @@
 		},
 		data() {
 			return {
+				ismanage:false,
 				projectName:'',
 				imgNum:100,
 				typeNum:26,
@@ -107,6 +62,9 @@
 			}
 		},
 		methods: {
+			tomanage(){
+				this.ismanage=!this.ismanage;
+			}
 			
 		}
 	}
@@ -122,7 +80,7 @@
 		align-items: center;
 	}
 	.header{
-		height:110rpx;
+		height:210rpx;
 		width:100%;
 		color:#000000;
 		border-bottom: 1rpx solid #F5F5F5;
@@ -139,9 +97,9 @@
 	}
 	
 	.programAvatar{
-		width:80rpx;
-		height:80rpx;
-		border-radius: 80rpx;
+		width:150rpx;
+		height:150rpx;
+		border-radius: 150rpx;
 	}
 	
 	.imageNum{
@@ -174,6 +132,14 @@
 		display: flex;
 		flex-direction: column;
 	
+	}
+	
+	.ismanage{
+		color:#ffffff;
+		background-color: #000000;
+	}
+	.nomanage{
+		color:#000000;
 	}
 	
 

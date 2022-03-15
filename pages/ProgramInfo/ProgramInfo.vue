@@ -44,7 +44,7 @@
 					Add Label
 				</view>
 			</view>
-			<view class="btn">
+			<view class="btn" @click="toImgInfo()">
 				<view class="iconfont icon-xinxi" style="color:#FFFFFF;font-size:100rpx;">
 				</view>
 				<view style="height:30rpx;">
@@ -175,6 +175,11 @@
 						url:"../programData/programData",
 					})		
 				},
+				toImgInfo(){
+					uni.navigateTo({
+						url:"../programImgs/programImgs",
+					})
+				}
 			
 		}
 	}
