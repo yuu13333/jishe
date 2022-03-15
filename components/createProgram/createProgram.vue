@@ -122,7 +122,7 @@
 								//服务器请求新建
 								let id = 1;
 								helper.setProject(id);
-								
+								//会将之前的图片与标签清空
 								
 								setTimeout(() => {
 									uni.hideLoading();

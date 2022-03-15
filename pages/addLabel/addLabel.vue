@@ -47,6 +47,7 @@
 					<button class="btn" @click="addMainLabel()" :class="indexLabel[index]=='其他垃圾'?'otherGabage':indexLabel[index]=='厨余垃圾'?'chiefGabage':indexLabel[index]=='可回收垃圾'?'recycleGabage':indexLabel[index]=='有害垃圾'?'poisonGabage':'selectLabel'">
 						<view :class="indexLabel[index]=='添加主标签'?'wbtn':''">{{indexLabel[index]}}</view>
 						<view style="width:80%;border: 1rpx solid #FFFFFF;"></view>
+						<view style="color:#FFFFFF;font-size: 30rpx;">{{indexSonLabel[index]}}</view>
 					</button>
 					<uni-popup ref="mainLabelPop" type="dialog">
 					<view style="overflow:hidden;width:580rpx;height: 500rpx;background-color: #FFFFFF;border-radius: 20rpx;text-align: center;line-height: 100rpx;display:flex;flex-direction: column; justify-content: space-between;align-items: center;">
@@ -120,15 +121,24 @@
 			// }
 			//全局变量代替暂时存储
 			this.imgurls=helper.getial();
+			this.imglabels=helper.getiwl(); 
+			console.log(this.imgurls.length);
+			for(let i=0;i<this.imgurls.length;i++){
+				if(this.imgurls[i].length>0){
+				this.indexLabel[i]=this.imglabels.get(this.imgurls[i])[0];
+				this.indexSonLabel[i]=this.imglabels.get(this.imgurls[i])[1];
+				}
+			}
+			this.$forceUpdate();
 			//console.log(typeof this.imgurls[1]);
 			
 		},
-		onBackPress(options) {
-		    uni.redirectTo({
-		    	url:"../ProgramInfo/ProgramInfo",
-		    })
-			return true;
-		},
+		// onBackPress(options) {
+		//     uni.redirectTo({
+		//     	url:"../ProgramInfo/ProgramInfo",
+		//     })
+		// 	return true;
+		// },
 		data() {
 			return {
 				imgurls:[],
@@ -139,7 +149,8 @@
 				transStyle:'',
 				current:0,
 				currentLabel:0,
-				indexLabel:new Array(10).fill("添加主标签"),
+				indexLabel:new Array(20).fill("添加主标签"),
+				indexSonLabel:new Array(20).fill(undefined),
 				items: [{
 				                    value: '项目一id',
 				                    name: '项目一',
@@ -246,11 +257,12 @@
 				//console.log(helper.getiwl().get(this.imgurls[this.index]));
 				this.imglabels=helper.getiwl(); 
 				this.indexLabel[this.index]=this.imglabels.get(this.imgurls[this.index])[0];
+				this.indexSonLabel[this.index]=this.imglabels.get(this.imgurls[this.index])[1];
 				this.$forceUpdate();
 				console.log(this.indexLabel[this.index]);
 				this.$refs.mainLabelPop.close();
 				uni.showToast({
-					icon:'success',
+					image:'../../static/chenggong_1.png',
 					title:'添加成功!',
 					duration:800,
 				});	
@@ -258,22 +270,42 @@
 			clearIndexLabel(){
 				helper.deleteiwl(this.indexLabel[this.index]);
 				this.indexLabel[this.index]="添加主标签";
+				this.indexSonLabel[this.index]=undefined;
 				this.$forceUpdate();
 				uni.showToast({
-					icon:'success',
+					image:'../../static/chenggong_1.png',
 					title:'删除成功!',
 					duration:800
 				});	
 				console.log(this.imglabels.has(this.imgurls[this.index]));
 			},
 			addSonLabel(){
-				this.$refs.AddSonPop.open();
+				if(this.indexLabel[this.index]=="添加主标签"){
+					uni.showToast({
+						image:"../../static/jinggao.png",
+						title:'未添加主标签',
+						duration:800
+					})
+				}
+				else{
+					this.$refs.AddSonPop.open();
+				}
 			},
 			closeAddSon(){
 				this.$refs.AddSonPop.close();
 			},
-			confirmSon(){
+			confirmSon(value){
 				this.$refs.AddSonPop.close();
+				helper.addiwlson(this.imgurls[this.index],value);
+				this.imglabels=helper.getiwl(); 
+				this.indexSonLabel[this.index]=this.imglabels.get(this.imgurls[this.index])[1];
+				console.log(this.indexSonLabel[this.index]);
+				this.$forceUpdate();
+				uni.showToast({
+					image:'../../static/chenggong_1.png',
+					title:'添加成功!',
+					duration:800,
+				});
 				//添加子标签
 			}
 			

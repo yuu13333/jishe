@@ -68,6 +68,8 @@
 		    return false;
 		},
 		onLoad(name){
+			//改为请求的方式
+			console.log("@@");
 			this.projectName=name.val;
 			this.projectDescription=name.des;
 		},
