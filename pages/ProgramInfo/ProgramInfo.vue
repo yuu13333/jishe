@@ -68,9 +68,11 @@
 		    return false;
 		},
 		onLoad(name){
+			console.log(name);
 			this.projectName=name.val;
 			this.projectDescription=name.des;
 		},
+		
 		data() {
 			return {
 				projectName:'',

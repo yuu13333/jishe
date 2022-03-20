@@ -1,6 +1,6 @@
 <template>
 		<scroll-view class="content">
-		<view class="cards" v-for="(item,index) in cards" @click="clickCard()">
+		<view class="cards" v-for="(item,index) in cards" @click="clickCard(item)" :key="index">
 			<uni-card style="height: 400rpx;" :title="item.title" extra="额外信息">
 				<view class="cardview">
 				<image style="width:150rpx;height: 150rpx;border-radius: 400rpx;" :src="item.url"></image>
@@ -15,7 +15,7 @@
 			</view>
 				<uni-popup ref="dialogInput" type="dialog">
 				<view style="width:580rpx;height: 600rpx;background-color: #FFFFFF;border-radius: 10rpx;text-align: center;line-height: 100rpx;display:flex;flex-direction: column; justify-content: space-between;align-items: center;overflow: hidden;">
-				<view>创建新项目</view>
+				<view style="display: flex;"><view class="iconfont icon-xinjian" style="font-size: 50rpx;"></view><view style="width:15rpx;"></view>创建新项目</view>
 				<view style="width:100%;flex:1 1 auto;display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
 				<view style="width:100%;display: flex;justify-content: center;">
 					<input type="text" @input="onInputName" style="width: 80%;height:100rpx;border:1rpx solid #D8D8D8;border-radius: 10rpx;" placeholder="项目名称"/></view>
@@ -27,7 +27,7 @@
 				</view>
 				</uni-popup>
 				
-			</view>
+		</view>
 		</scroll-view>
 </template>
 
@@ -52,32 +52,32 @@
 					{
 						title:"collection one",
 						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-						url:"../../static/logo.png",
+						url:"../../static/mock/1.jpg",
 					},
 					{
 						title:"collection one",
 						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-						url:"../../static/logo.png",
+					url:"../../static/mock/2.jpg",
 					},
 					{
 						title:"collection one",
 						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-						url:"../../static/logo.png",
+						url:"../../static/mock/3.jpg",
 					},
 					{
 						title:"collection one",
 						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-						url:"../../static/logo.png",
+						url:"../../static/mock/4.jpg",
 					},
 					{
 						title:"collection one",
 						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-						url:"../../static/logo.png",
+						url:"../../static/mock/5.jpg",
 					},
 					{
 						title:"collection one",
 						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-						url:"../../static/logo.png",
+						url:"../../static/mock/6.jpg",
 					},
 				]
 				
@@ -105,25 +105,22 @@
 							if(this.value===""||this.description===""){
 								this.$refs.dialogInput.close();
 								uni.showToast({
-									icon:'error',
-									title:'输入为空!',
+									icon:"none",
+									image:"../../static/jinggao.png",
+									title:'输入为空',
 									duration:800
 								})
 							}
 							else{
 								this.$refs.dialogInput.close();
 								uni.showLoading({
-									title: '项目新建完成'
+									title: '项目新建完成',
+									duration:800
 								})
-								console.log(this.value);
-								console.log(this.description);
-								
-								
 								//服务器请求新建
 								let id = 1;
 								helper.setProject(id);
-								//会将之前的图片与标签清空
-								
+								//会将之前的图片与标签清空	
 								setTimeout(() => {
 									uni.hideLoading();
 									uni.navigateTo({
@@ -132,9 +129,12 @@
 								}, 1000)
 							}
 						},
-			clickCard(){
+			clickCard(item){
+				//设置当前项目id
+				let id = 1;
+				helper.setProject(id);
 				uni.navigateTo({
-					url:"../../pages/ProgramInfo/ProgramInfo",
+					url:"../../pages/ProgramInfo/ProgramInfo?val="+item.title+"&des="+item.description,
 				})
 			}
 			},

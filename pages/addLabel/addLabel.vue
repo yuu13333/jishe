@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
-		<view class="imgarea" >
-			<view v-for="(item,index) in imgurls" class="img">
+		<view class="imgarea" style="background-color: #F5F5F5;">
+			<view v-for="(item,index) in imgurls" class="img" :key="index">
 				<image mode="widthFix" style="width:750rpx;" :style="{transform:transStyle}" :src="item"></image>
 			</view>
 		</view>
@@ -31,24 +31,26 @@
 				</view>
 			</view>
 			<view class="row">
-				<view class="sq1">
+				<view class="sq1" @click="addSonLabel()">
 					<view class="iconfont icon-roundadd" style="font-size:80rpx;">						
 					</view>
 					<view style="height: 10rpx;">			
 					</view>
-					<view class="text" @click="addSonLabel()">
+					<view class="text" >
 						添加子标签
 					</view>
 					<uni-popup ref="AddSonPop" type="dialog">
-					<uni-popup-dialog title="添加子标签" mode="input" placeholder="请输入子标签名" message="成功消息" :duration="2000" :before-close="true" @close="closeAddSon" @confirm="confirmSon"></uni-popup-dialog>
+					<uni-popup-dialog style="color: #000000;" title="添加子标签" mode="input" placeholder="请输入子标签名" message="成功消息" :duration="2000" :before-close="true" @close="closeAddSon" @confirm="confirmSon"></uni-popup-dialog>
 					</uni-popup>
 				</view>
-				<view class="sq4">
-					<button class="btn" @click="addMainLabel()" :class="indexLabel[index]=='其他垃圾'?'otherGabage':indexLabel[index]=='厨余垃圾'?'chiefGabage':indexLabel[index]=='可回收垃圾'?'recycleGabage':indexLabel[index]=='有害垃圾'?'poisonGabage':'selectLabel'">
-						<view :class="indexLabel[index]=='添加主标签'?'wbtn':''">{{indexLabel[index]}}</view>
-						<view style="width:80%;border: 1rpx solid #FFFFFF;"></view>
-						<view style="color:#FFFFFF;font-size: 30rpx;">{{indexSonLabel[index]}}</view>
-					</button>
+				<view class="sq1" @click="addMainLabel()">
+					<view class="iconfont icon-add" style="font-size:90rpx;">						
+					</view>
+					<view style="height: 10rpx;">			
+					</view>
+					<view class="text" >
+						添加主标签
+					</view>
 					<uni-popup ref="mainLabelPop" type="dialog">
 					<view style="overflow:hidden;width:580rpx;height: 500rpx;background-color: #FFFFFF;border-radius: 20rpx;text-align: center;line-height: 100rpx;display:flex;flex-direction: column; justify-content: space-between;align-items: center;">
 					<view style="width:100%;border-bottom:1rpx solid #C0C0C0;">选择标签</view>
@@ -66,38 +68,56 @@
 					</view>
 					</uni-popup>
 				</view>
-			</view>
-			<view class="row">
 				<view class="sq1" @click="clearIndexLabel()">
 					<view class="iconfont icon-shanchuyuan" style="font-size:75rpx;">						
 					</view>
-					<view style="height: 10rpx;">
+					<view style="height: 20rpx;">
 					</view>
 					<view class="text" >
 						删除标签
 					</view>
 				</view>
-				<view class="sq4">
-					<button class="button" @click="toInfo()">提交识别</button>
-					<uni-popup ref="submitPop" type="dialog">
-					<view style="overflow:hidden;width:580rpx;height: 500rpx;background-color: #FFFFFF;border-radius: 20rpx;text-align: center;line-height: 100rpx;display:flex;flex-direction: column; justify-content: space-between;align-items: center;">
-					<view style="width:100%;border-bottom:1rpx solid #C0C0C0;">选择存储位置</view>
-					<scroll-view scroll-y="true" show-scrollbar="true" style="height:300rpx;width:80%;display: flex;align-items: center;justify-content: center;">
-					<radio-group @change="radioChange" style="width: 80%;">
-						<label style="display: flex;" class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
-							<view>
-							<radio :value="item.value" :checked="index === current" />
-							</view>
-							<view>{{item.name}}</view>
-						</label>
-					</radio-group>
-					</scroll-view>
-					<view style="display: flex;width:100%;justify-content: space-between;"><button style="width:50%;border-radius:0;border:none; background-color:#007AFF;color:#FFFFFF;" @click="closeDialog()">取消</button><button style="width:50%;border:none;border-radius:0;background-color: #FFFFFF;color:#007AFF" @click="dialogInputConfirm()">确认</button></view>
-					</view>
-					</uni-popup>
+			</view>
+			<view class="row1">
+			<view class="sq4">
+				<view style="width:100rpx;"></view>
+				
+				<scroll-view scroll-top="0" show-scrollbar="true" scroll-y="true" style="width:300rpx;height:100%;overflow: hidden;display: flex;flex-direction: column;align-items: center;justify-content: center;">
+				<view v-if="!indexLabel[index]" style="width:100%;height:100%;display: flex;justify-content: center;align-items: center;">(无标签)</view>
+				<labelItem v-if="indexLabel[index]" :colorInfo="indexLabel[index]=='其他垃圾'?'otherGabage':indexLabel[index]=='厨余垃圾'?'chiefGabage':indexLabel[index]=='可回收垃圾'?'recycleGabage':indexLabel[index]=='有害垃圾'?'poisonGabage':'selectLabel'" :typeText="indexLabel[index]"></labelItem>
+				<view style="height:20rpx;"></view>
+				<view v-for="(item,index) in indexSonLabel[index]" :key="index">
+				<labelSonItem :typeText="item"></labelSonItem>
+				<view style="height:10rpx;"></view>
+				</view>
+				</scroll-view>
+				
+				<!-- <button class="btn" @click="addMainLabel()" :class="indexLabel[index]=='其他垃圾'?'otherGabage':indexLabel[index]=='厨余垃圾'?'chiefGabage':indexLabel[index]=='可回收垃圾'?'recycleGabage':indexLabel[index]=='有害垃圾'?'poisonGabage':'selectLabel'">
+					<view :class="indexLabel[index]=='添加主标签'?'wbtn':''">{{indexLabel[index]}}</view>
+					<view style="width:80%;border: 1rpx solid #FFFFFF;"></view>
+					<view style="color:#FFFFFF;font-size: 30rpx;">{{indexSonLabel[index]}}</view>
+				</button> -->
+			</view>
+			<view class="sq4">
+				<button class="button" @click="toInfo()">提交识别</button>
+				<uni-popup ref="submitPop" type="dialog">
+				<view style="overflow:hidden;width:580rpx;height: 500rpx;background-color: #FFFFFF;border-radius: 20rpx;text-align: center;line-height: 100rpx;display:flex;flex-direction: column; justify-content: space-between;align-items: center;">
+				<view style="width:100%;border-bottom:1rpx solid #C0C0C0;">选择存储位置</view>
+				<scroll-view scroll-y="true" show-scrollbar="true" style="height:300rpx;width:80%;display: flex;align-items: center;justify-content: center;">
+				<radio-group @change="radioChange" style="width: 80%;">
+					<label style="display: flex;" class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
+						<view>
+						<radio :value="item.value" :checked="index === current" />
+						</view>
+						<view>{{item.name}}</view>
+					</label>
+				</radio-group>
+				</scroll-view>
+				<view style="display: flex;width:100%;justify-content: space-between;"><button style="width:50%;border-radius:0;border:none; background-color:#007AFF;color:#FFFFFF;" @click="closeDialog()">取消</button><button style="width:50%;border:none;border-radius:0;background-color: #FFFFFF;color:#007AFF" @click="dialogInputConfirm()">确认</button></view>
+				</view>
+				</uni-popup>
 				</view>
 			</view>
-			
 		</view>
 	</view>
 </template>
@@ -149,7 +169,7 @@
 				transStyle:'',
 				current:0,
 				currentLabel:0,
-				indexLabel:new Array(20).fill("添加主标签"),
+				indexLabel:new Array(20).fill(undefined),
 				indexSonLabel:new Array(20).fill(undefined),
 				items: [{
 				                    value: '项目一id',
@@ -211,6 +231,17 @@
 			},
 			
 			toInfo(){
+				for(let i=0;i<this.imgurls.length;i++){
+					if(this.indexLabel[i]===undefined){
+						uni.showToast({
+							icon:"none",
+							image:"../../static/jinggao.png",
+							title:'标签不完整',
+							duration:800
+						})
+						return;
+					}
+				}
 				let currentproject = helper.getProject();
 				if(currentproject==='')
 					this.$refs.submitPop.open();
@@ -268,19 +299,29 @@
 				});	
 			},
 			clearIndexLabel(){
-				helper.deleteiwl(this.indexLabel[this.index]);
-				this.indexLabel[this.index]="添加主标签";
-				this.indexSonLabel[this.index]=undefined;
-				this.$forceUpdate();
-				uni.showToast({
-					image:'../../static/chenggong_1.png',
-					title:'删除成功!',
-					duration:800
-				});	
-				console.log(this.imglabels.has(this.imgurls[this.index]));
+				if(this.indexLabel[this.index]!==undefined){
+					helper.deleteiwl(this.indexLabel[this.index]);
+					this.indexLabel[this.index]=undefined;
+					this.indexSonLabel[this.index]=undefined;
+					this.$forceUpdate();
+					uni.showToast({
+						image:'../../static/chenggong_1.png',
+						title:'删除成功!',
+						duration:800
+					});	
+					console.log(this.imglabels.has(this.imgurls[this.index]));
+				}
+				else{
+					uni.showToast({
+						image:'../../static/jinggao.png',
+						title:'当前无标签',
+						duration:800
+					});		
+				}
+				
 			},
 			addSonLabel(){
-				if(this.indexLabel[this.index]=="添加主标签"){
+				if(this.indexLabel[this.index]==undefined){
 					uni.showToast({
 						image:"../../static/jinggao.png",
 						title:'未添加主标签',
@@ -298,8 +339,7 @@
 				this.$refs.AddSonPop.close();
 				helper.addiwlson(this.imgurls[this.index],value);
 				this.imglabels=helper.getiwl(); 
-				this.indexSonLabel[this.index]=this.imglabels.get(this.imgurls[this.index])[1];
-				console.log(this.indexSonLabel[this.index]);
+				this.indexSonLabel[this.index]=this.imglabels.get(this.imgurls[this.index]).slice(1);
 				this.$forceUpdate();
 				uni.showToast({
 					image:'../../static/chenggong_1.png',
@@ -321,6 +361,14 @@
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
+	}
+	.row1{
+		width:100%;
+		height:250rpx;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		
 	}
 	image{
 		transition: linear 0.2s; 

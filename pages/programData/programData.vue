@@ -7,7 +7,9 @@
 		</view>		
 		<view class="info">
 			<echarts v-if="!ismanage"></echarts>
-			<programImgManage v-if="ismanage"></programImgManage>
+			<uni-transition style="width:100%;width:100%;" mode-class="fade" :duration="100" :show="ismanage">
+				<programImgManage style="width:100%;width:100%;"></programImgManage>
+			</uni-transition>
 		</view>
 	</view>
 </template>

@@ -1,7 +1,9 @@
 <template>
 	<view>
 		<view class="welcome">
-			Welcome
+			<view style="width:30%;"></view>
+			<view style="width:40%;display: flex;align-items: center;justify-content: center;">Welcome</view>
+			<view style="width:30%;display: flex;align-items: center;"><view @click="toLogin()" class="iconfont icon-tianjiayonghu" style="position:absolute;right:30rpx;font-size: 55rpx;color:#555555"></view></view>
 		</view>
 		<view class="content">
 			<classfication v-if="!isCreate"></classfication>
@@ -24,7 +26,12 @@
 </template>
 
 <script>
+	import helper from '../../common/common/common.js'
 	export default {
+		onBackPress(options) {
+		    
+		    return true
+		},
 		data() {
 			return {
 				isCreate:true,
@@ -37,14 +44,26 @@
 			},
 			classify(){
 				this.isCreate = false;
+			},
+			toLogin(){
+				//关于账号的清空操作
+				//首先确定没有未识别照片的残留
+				if(helper.getial().length){
+					
+					//提示一下
+				}
+				//先不清除缓存的照片和账号id信息
+				//跳转
+				uni.navigateTo({
+					url:"../login/login"
+				})
 			}
-			
-			
 		}
 	}
 </script>
 
 <style>
+	@import url("../../common/requestInfo/iconfont.css");
 	@import url("../../common/welcome/iconfont.css");
 	.welcome{
 		width:100%;

@@ -54,6 +54,8 @@ const getProject=()=>{
 
 const clearProject=()=>{
 	currentProject='';
+	cleariwl();
+	clearial();
 }
 export default {
 	login,
@@ -69,6 +71,6 @@ export default {
 	getProject,
 	clearProject,
 	addiwlson,
-	deleteiwl
+	deleteiwl,
 }
 
