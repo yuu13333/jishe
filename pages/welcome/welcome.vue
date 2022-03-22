@@ -29,13 +29,22 @@
 	import helper from '../../common/common/common.js'
 	export default {
 		onBackPress(options) {
-		    
-		    return true
+			//返回两次退出应用
+			this.backButtonPress++;
+					if (this.backButtonPress > 1) { 
+						plus.runtime.quit();
+					} else {
+						plus.nativeUI.toast('再按一次退出应用');
+					} 
+					setTimeout(()=> {
+						this.backButtonPress = 0;
+					}, 1000);
+					return true;
 		},
 		data() {
 			return {
 				isCreate:true,
-				
+				backButtonPress:0,
 			}
 		},
 		methods: {

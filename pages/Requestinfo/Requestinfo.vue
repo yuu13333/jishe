@@ -11,7 +11,9 @@
 			<view style="width:2rpx"></view>
 		</view>
 		<view class="content">
+			<view style="height:100rpx;"></view>
 			<responseInfo></responseInfo>
+			<view style="height:100rpx;"></view>
 		</view>
 		<view class="footer" style="background-color: #FFFFFF;width: 100%;">这是注脚</view>
 	</view>
@@ -24,7 +26,20 @@
 			helper.clearial();
 			helper.cleariwl();
 		},
-		onBackPress(options) {	    
+		onBackPress(options) {	
+			uni.showModal({
+				title: 'Tip',
+				content: '是否前往首页？',
+				success: function (res) {
+					if (res.confirm) {
+						uni.navigateTo({
+							url:"../welcome/welcome",
+						})
+					} else if (res.cancel) {
+						console.log('用户点击取消');
+					}
+				}
+			});
 		    return true
 		},
 		data() {

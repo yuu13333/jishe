@@ -2,60 +2,38 @@
 	<view class="content">
 		<view style="height: 5%;"></view>
 		<view class="title">
-			欢迎来到垃圾分类app
+			{{islogin?'欢迎来到垃圾分类app.':'请创建一个新账号.'}}
 		</view>
-		//加个动画
 		<login v-if="islogin"></login>
 		<signIn v-if="issign"></signIn>
-		<verify v-if="isverify"></verify>
-<!-- 		<view class="form">
-			<view class="grey">
-				<view style="width:50rpx;"></view>
-				<view class="iconfont icon-youxiang2" style="width: 10%;font-size: 45rpx;"></view>
-				<view style="width:15rpx;"></view>
-				<view style="width:5%;color:#000000;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
-				<view style="width:15rpx;"></view>
-				<view><input type="text" placeholder="请输入邮箱" placeholder-style="color:#000000;"/></view>
-			</view>
-			<view class="grey">
-				<view style="width:50rpx;"></view>
-				<view class="iconfont icon-mima" style="width: 10%;font-size: 45rpx;"></view>
-				<view style="width:15rpx;"></view>
-				<view style="width:5%;color:#000000;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
-				<view style="width:15rpx;"></view>
-				<view>
-					<input type="text" placeholder="请输入密码" placeholder-style="color:#000000;" />
-				</view>
-			</view>
-		</view> -->
 		<view class="tip">
-			未注册的邮箱验证后自动创建app账号。
+			点击此处进入游客模式，支持离线识别。
 		</view>
 		<view class="btn">
-			<button class="login" @click="login()">{{islogin?"登录":!hasgain?"获取验证码":issign?"注册":"登录"}}</button>
+			<button class="login" @click="login()">{{islogin?"登录":"注册"}}</button>
 		</view>
 		<view style="height: 30rpx;"></view>
 		<view class="sign">
-			<view class="column" @click="sign()">
-				<view class="iconfont icon-zhuce" style="font-size: 40rpx;">
-				</view>
-				<view style="height: 15rpx;"></view>
-				<view class="t">注册</view>
-			</view>
-			<view style="width: 5%;color:#000000;">|</view>
-			<view class="column" @click="verify()">
-				<view class="iconfont icon-yanzheng" style="font-size: 40rpx;">
-				</view>
-				<view style="height: 15rpx;"></view>
-				<view class="t">验证</view>
-			</view>
-			<view style="width: 5%;color:#000000;">|</view>
 			<view class="column" @click="tologin()">
 				<view class="iconfont icon-shouji" style="font-size: 40rpx;">
 				</view>
 				<view style="height: 15rpx;"></view>
 				<view class="t">登录</view>
 			</view>
+			<view style="width: 5%;color:#000000;">|</view>
+			<view class="column" @click="sign()">
+				<view class="iconfont icon-zhuce" style="font-size: 40rpx;">
+				</view>
+				<view style="height: 15rpx;"></view>
+				<view class="t">注册</view>
+			</view>
+			<!-- <view style="width: 5%;color:#000000;">|</view> -->
+			<!-- <view class="column" @click="verify()">
+				<view class="iconfont icon-yanzheng" style="font-size: 40rpx;">
+				</view>
+				<view style="height: 15rpx;"></view>
+				<view class="t">验证</view>
+			</view> -->
 			
 		</view>
 		<view class="blank"></view>
@@ -68,7 +46,7 @@
 			return {
 				islogin:true,
 				issign:false,
-				isverify:false,
+				// isverify:false,
 				hasgain:false,
 			}
 		},
@@ -167,6 +145,7 @@
 		align-items: center;
 		justify-content: center;
 		color:#999999;
+/* 		color:#007AFF; */
 		font-size:30rpx;
 	}
 	.btn{

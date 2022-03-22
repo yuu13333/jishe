@@ -1,5 +1,5 @@
 <template>
-	<view style="width:200rpx;height:80rpx;display:flex;border-radius: 10rpx;background-color: #FFFFFF;border:1rpx solid #D8D8D8;border-left:none;justify-content: space-between;">
+	<view style="width:200rpx;height:60rpx;display:flex;border-radius: 10rpx;background-color: #FFFFFF;border:1rpx solid #D8D8D8;border-left:none;justify-content: space-between;">
 		<view style="width:15rpx;height:100%;border-radius: 10rpx;" :class="colorInfo"></view>
 		<view style="flex:1 1 auto;color:#555555;display: flex;align-items: center;justify-content: center;font-size: 30rpx;">{{typeText}}</view>
 	</view>

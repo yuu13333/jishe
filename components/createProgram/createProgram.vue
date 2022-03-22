@@ -39,7 +39,6 @@
 			this.$refs.dialogInput.close();
 		},
 		onShow(){
-			console.log("!");
 			this.value="";
 			this.description="";
 		},

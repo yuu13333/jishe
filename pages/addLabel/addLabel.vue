@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="imgarea" style="background-color: #F5F5F5;">
-			<view v-for="(item,index) in imgurls" class="img" :key="index">
+			<view v-for="(item,index) in imgurls" class="img" :key="index" @click="preview()">
 				<image mode="widthFix" style="width:750rpx;" :style="{transform:transStyle}" :src="item"></image>
 			</view>
 		</view>
@@ -87,16 +87,10 @@
 				<labelItem v-if="indexLabel[index]" :colorInfo="indexLabel[index]=='其他垃圾'?'otherGabage':indexLabel[index]=='厨余垃圾'?'chiefGabage':indexLabel[index]=='可回收垃圾'?'recycleGabage':indexLabel[index]=='有害垃圾'?'poisonGabage':'selectLabel'" :typeText="indexLabel[index]"></labelItem>
 				<view style="height:20rpx;"></view>
 				<view v-for="(item,index) in indexSonLabel[index]" :key="index">
-				<labelSonItem :typeText="item"></labelSonItem>
+				<labelSonItem :typeText="item" :colorInfo="indexLabel[index]=='其他垃圾'?'otherGabage':indexLabel[index]=='厨余垃圾'?'chiefGabage':indexLabel[index]=='可回收垃圾'?'recycleGabage':indexLabel[index]=='有害垃圾'?'poisonGabage':'selectLabel'"></labelSonItem>
 				<view style="height:10rpx;"></view>
 				</view>
 				</scroll-view>
-				
-				<!-- <button class="btn" @click="addMainLabel()" :class="indexLabel[index]=='其他垃圾'?'otherGabage':indexLabel[index]=='厨余垃圾'?'chiefGabage':indexLabel[index]=='可回收垃圾'?'recycleGabage':indexLabel[index]=='有害垃圾'?'poisonGabage':'selectLabel'">
-					<view :class="indexLabel[index]=='添加主标签'?'wbtn':''">{{indexLabel[index]}}</view>
-					<view style="width:80%;border: 1rpx solid #FFFFFF;"></view>
-					<view style="color:#FFFFFF;font-size: 30rpx;">{{indexSonLabel[index]}}</view>
-				</button> -->
 			</view>
 			<view class="sq4">
 				<button class="button" @click="toInfo()">提交识别</button>
@@ -124,8 +118,9 @@
 
 <script>
 	import helper from '../../common/common/common.js'
+	import { pathToBase64, base64ToPath } from '../../js_sdk/mmmm-image-tools/index.js'
 	export default {
-		onLoad(base64) {
+		onLoad() {
 			// if(base64.iscamera=="true"){
 			// 	//console.log(base64);
 			// 	console.log("调用相机!");
@@ -144,21 +139,13 @@
 			this.imglabels=helper.getiwl(); 
 			console.log(this.imgurls.length);
 			for(let i=0;i<this.imgurls.length;i++){
-				if(this.imgurls[i].length>0){
+				if(this.imgurls[i].length>0&&this.imglabels.has(this.imgurls[i])){
 				this.indexLabel[i]=this.imglabels.get(this.imgurls[i])[0];
 				this.indexSonLabel[i]=this.imglabels.get(this.imgurls[i])[1];
 				}
 			}
 			this.$forceUpdate();
-			//console.log(typeof this.imgurls[1]);
-			
 		},
-		// onBackPress(options) {
-		//     uni.redirectTo({
-		//     	url:"../ProgramInfo/ProgramInfo",
-		//     })
-		// 	return true;
-		// },
 		data() {
 			return {
 				imgurls:[],
@@ -285,6 +272,8 @@
 			MainLabelConfirm(){
 				//添加标签的数据结构操作
 				helper.addiwl(this.imgurls[this.index],this.categories[this.currentLabel].value);
+				this.currentLabel=0;
+				// console.log(this.currentLabel);
 				//console.log(helper.getiwl().get(this.imgurls[this.index]));
 				this.imglabels=helper.getiwl(); 
 				this.indexLabel[this.index]=this.imglabels.get(this.imgurls[this.index])[0];
@@ -347,6 +336,30 @@
 					duration:800,
 				});
 				//添加子标签
+			},
+			preview(){
+				console.log("!");
+				let that = this;
+								// uni.showLoading({
+								// 	title:"图片处理中..."
+								// })
+								base64ToPath(this.imgurls[this.index]) //logoul为base64为图片流
+								  .then(path => {
+									let imgsArray = [];
+									uni.hideLoading()
+									imgsArray[0] = path;
+									uni.previewImage({
+										current: 0, 
+										urls: imgsArray
+									});
+								  })
+								  .catch(error => {
+										that.$refs.uToast.show({
+											title: '图片加载失败',
+											type: 'warning'
+										})
+									// uni.hideLoading()
+								  })
 			}
 			
 		}
@@ -354,6 +367,7 @@
 </script>
 
 <style>
+	
 	@import url("../../common/remark/iconfont.css");
 	.row{
 		width:100%;

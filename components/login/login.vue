@@ -2,11 +2,11 @@
 		<view class="form">
 			<view class="grey">
 				<view style="width:50rpx;"></view>
-				<view class="iconfont icon-youxiang2" style="width: 10%;font-size: 45rpx;"></view>
+				<view class="iconfont icon-shouji" style="width: 10%;font-size: 45rpx;"></view>
 				<view style="width:15rpx;"></view>
 				<view style="width:5%;color:#000000;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
 				<view style="width:15rpx;"></view>
-				<view><input type="text" placeholder="请输入邮箱" placeholder-style="color:#000000;"/></view>
+				<view><input type="text" placeholder="请输入用户名" placeholder-style="color:#000000;"/></view>
 			</view>
 			<view class="grey">
 				<view style="width:50rpx;"></view>

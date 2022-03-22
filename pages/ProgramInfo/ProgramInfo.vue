@@ -3,7 +3,7 @@
 		<view class="header">
 		<view style="width: 80%;height:100%;display: flex;flex-direction: column;">
 				<view style="height:100rpx;"></view>
-				<view style="color:#FFFFFF;height:30%;"><text class="flex flex-direction"style="font-size: 50rpx;">{{projectName}}</text></view>
+				<view style="color:#FFFFFF;height:30%;"><text class="flex flex-direction" style="font-size: 50rpx;">{{projectName}}</text></view>
 				<view style="border:1rpx solid #FFFFFF;width:100%;"></view>
 				<view style="height:30rpx;"></view>
 				<view style="color:#FFFFFF;height:10%;"><text style="font-size: 30rpx;">{{String(new Date()).slice(0,-14)}}</text></view>
@@ -68,7 +68,7 @@
 		    return false;
 		},
 		onLoad(name){
-			console.log(name);
+			
 			this.projectName=name.val;
 			this.projectDescription=name.des;
 		},
@@ -99,7 +99,7 @@
 										let items = JSON.stringify(base64s);
 										if(count == res.tempFilePaths.length){
 											uni.showModal({
-												title: 'Tips',
+												title: 'Tip',
 												content: '是否立即前往添加标签？',
 												success: function (res) {
 													if (res.confirm) {

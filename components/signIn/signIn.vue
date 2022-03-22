@@ -6,21 +6,21 @@
 			<view style="width:15rpx;"></view>
 			<view style="width:5%;color:#000000;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
 			<view style="width:15rpx;"></view>
-			<view><input type="text" placeholder="请输入邮箱" placeholder-style="color:#000000;"/></view>
+			<view><input type="text" placeholder="请设置用户名" placeholder-style="color:#000000;"/></view>
 		</view>
 		<view class="grey">
 			<view style="width:50rpx;"></view>
-			<view class="iconfont icon-mima" style="width: 10%;font-size: 45rpx;"></view>
+			<view class="iconfont icon-mima1" style="width: 10%;font-size: 50rpx;"></view>
 			<view style="width:15rpx;"></view>
 			<view style="width:5%;color:#000000;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
 			<view style="width:15rpx;"></view>
 			<view>
-				<input type="text" placeholder="设置密码" placeholder-style="color:#000000;" />
+				<input type="text" placeholder="请设置密码" placeholder-style="color:#000000;" />
 			</view>
 		</view>
 		<view class="grey">
 			<view style="width:50rpx;"></view>
-			<view class="iconfont icon-mima1" style="width: 10%;font-size: 45rpx;"></view>
+			<view class="iconfont icon-yanzheng" style="width: 10%;font-size: 45rpx;"></view>
 			<view style="width:15rpx;"></view>
 			<view style="width:5%;color:#000000;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
 			<view style="width:15rpx;"></view>
@@ -28,7 +28,7 @@
 				<input type="text" placeholder="确认密码" placeholder-style="color:#000000;" />
 			</view>
 		</view>
-			<view class="grey">
+			<!-- <view class="grey">
 				<view style="width:50rpx;"></view>
 				<view class="iconfont icon-yanzhengma" style="width: 10%;font-size: 45rpx;"></view>
 				<view style="width:15rpx;"></view>
@@ -36,7 +36,7 @@
 				<view style="width:15rpx;"></view>
 				<view>
 					<input type="text" placeholder="验证码" placeholder-style="color:#000000;" />
-				</view>
+				</view> -->
 		</view>
 		
 		
@@ -76,7 +76,7 @@
 		width:60%;	
 	}
 	.form{
-		height:64%;
+		height:44%;
 		display:flex;
 		flex-direction: column;
 		justify-content: space-around;
