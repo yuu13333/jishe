@@ -1,7 +1,7 @@
 <template>
 		<scroll-view class="content">
-		<view class="cards" v-for="(item,index) in cards" @click="clickCard(item)" :key="index">
-			<uni-card style="height: 400rpx;" :title="item.title" extra="额外信息">
+		<view class="cards" v-for="(item,index) in programinfo" @click="clickCard(item)" :key="index">
+			<uni-card style="height: 400rpx;" :title="item.title" extra="删除数据集">
 				<view class="cardview">
 				<image style="width:150rpx;height: 150rpx;border-radius: 400rpx;" :src="item.url"></image>
 				<view style="width:50rpx"></view>
@@ -35,8 +35,10 @@
 	import helper from '../../common/common/common.js'
 	export default {
 		name:"createProgram",
+		props:["programinfo"],
 		onLoad(){
 			this.$refs.dialogInput.close();
+			console.log(this.programs);
 		},
 		onShow(){
 			this.value="";
@@ -47,39 +49,6 @@
 				msgType: 'success',
 				value: '',
 				description:'',
-				cards:[
-					{
-						title:"collection one",
-						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-						url:"../../static/mock/1.jpg",
-					},
-					{
-						title:"collection one",
-						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-					url:"../../static/mock/2.jpg",
-					},
-					{
-						title:"collection one",
-						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-						url:"../../static/mock/3.jpg",
-					},
-					{
-						title:"collection one",
-						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-						url:"../../static/mock/4.jpg",
-					},
-					{
-						title:"collection one",
-						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-						url:"../../static/mock/5.jpg",
-					},
-					{
-						title:"collection one",
-						description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-						url:"../../static/mock/6.jpg",
-					},
-				]
-				
 			};
 		},
 		
@@ -100,7 +69,7 @@
 			dialogConfirm(done) {
 							this.$refs['popupMessage'].open()
 			},
-			dialogInputConfirm(val) {
+			async dialogInputConfirm(val) {
 							if(this.value===""||this.description===""){
 								this.$refs.dialogInput.close();
 								uni.showToast({
@@ -112,26 +81,40 @@
 							}
 							else{
 								this.$refs.dialogInput.close();
-								uni.showLoading({
-									title: '项目新建完成',
-									duration:800
-								})
 								//服务器请求新建
-								let id = 1;
-								helper.setProject(id);
-								//会将之前的图片与标签清空	
-								setTimeout(() => {
-									uni.hideLoading();
-									uni.navigateTo({
-										url:"../../pages/ProgramInfo/ProgramInfo?val="+this.value+"&des="+this.description
+								try{
+									const r = await this.request({
+										url: 'http://192.168.43.3:8080/createProgram',
+										method:"GET",
+										data: {
+											token:this.$store.state.token,
+											name:this.value,
+											des:this.description
+										 },
 									})
-								}, 1000)
+									this.$store.commit("setProject",{val:r});
+									helper.clearial();
+									helper.cleariwl();
+									console.log(r);
+									
+									//会将之前的图片与标签清空
+									setTimeout(() => {
+										uni.hideLoading();
+										uni.navigateTo({
+											url:"../../pages/ProgramInfo/ProgramInfo?val="+this.value+"&des="+this.description
+										})
+									}, 1000)
+								}catch(e){
+									console.log(e);
+								}
 							}
 						},
 			clickCard(item){
 				//设置当前项目id
-				let id = 1;
-				helper.setProject(id);
+				this.$store.commit("setProject",{val:item.id});
+				helper.clearial();
+				helper.cleariwl();
+				console.log(item.id);
 				uni.navigateTo({
 					url:"../../pages/ProgramInfo/ProgramInfo?val="+item.title+"&des="+item.description,
 				})
@@ -143,13 +126,15 @@
 <style>
 	@import url("../../common/welcome/iconfont.css");
 	.content{
+		min-height: 1150rpx;
 		height: 100%;
+		background-color: #F8F8F8;
 		margin-top: 100rpx;
 		margin-bottom: 100rpx;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
+		/* justify-content: center; */
 	}
 	text{
 		display: flex;

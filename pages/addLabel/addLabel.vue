@@ -135,6 +135,7 @@
 			// 	this.imgurls.push(item.replace(new RegExp(" ", "gm"), "+"));
 			// }
 			//全局变量代替暂时存储
+			this.islog=this.$store.state.islog;
 			this.imgurls=helper.getial();
 			this.imglabels=helper.getiwl(); 
 			console.log(this.imgurls.length);
@@ -148,6 +149,7 @@
 		},
 		data() {
 			return {
+				islog:false,
 				imgurls:[],
 				imglabels:null,
 				imgurl:"",
@@ -229,13 +231,26 @@
 						return;
 					}
 				}
-				let currentproject = helper.getProject();
-				if(currentproject==='')
-					this.$refs.submitPop.open();
-				else
+				let currentproject = this.$store.state.currentProject;
+				
+				//判断是否登录--离线识别
+				if(!this.islog){
+					//离线识别
+					//结果传递给requestinfo页面
 					uni.navigateTo({
 						url:"../Requestinfo/Requestinfo"
 					})
+				}
+				else{
+					if(currentproject==='')
+						this.$refs.submitPop.open();
+					else{
+						//在线识别 结果传递
+						uni.navigateTo({
+							url:"../Requestinfo/Requestinfo"
+						})
+					}
+				}
 			},
 			closeDialog(){
 				this.$refs.submitPop.close();

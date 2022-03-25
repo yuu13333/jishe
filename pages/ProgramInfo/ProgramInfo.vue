@@ -64,7 +64,9 @@
 	import helper from '../../common/common/common.js'
 	export default {
 		onBackPress(options) {
-		    helper.clearProject();
+			this.$store.commit("clearProject");
+			helper.clearial();
+			helper.cleariwl();
 		    return false;
 		},
 		onLoad(name){

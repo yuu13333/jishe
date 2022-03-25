@@ -40,7 +40,12 @@
 							pathToBase64(res.tempFilePaths[0])
 							  .then(base64 => {
 								//base64 = encodeURIComponent(base64);
+								let o={};
+								o.img=base64;
+								// this.$store.commit("logout",{});
+								// this.$store.commit("addial",o);
 								helper.addial(base64);
+								console.log("！");
 								uni.navigateTo({
 									url:"../../pages/addLabel/addLabel"+"?iscamera=true&base64="+base64
 								})
@@ -64,6 +69,8 @@
 									  .then(base64 => {
 										base64s.push(base64);
 										helper.addial(base64);
+										// console.log("1");
+										// this.$store.commit("addial",{"img":base64});
 										count++;
 										let items = JSON.stringify(base64s);
 										if(count == res.tempFilePaths.length){

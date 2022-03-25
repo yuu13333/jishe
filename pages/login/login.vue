@@ -4,14 +4,8 @@
 		<view class="title">
 			{{islogin?'欢迎来到垃圾分类app.':'请创建一个新账号.'}}
 		</view>
-		<login v-if="islogin"></login>
-		<signIn v-if="issign"></signIn>
-		<view class="tip">
-			点击此处进入游客模式，支持离线识别。
-		</view>
-		<view class="btn">
-			<button class="login" @click="login()">{{islogin?"登录":"注册"}}</button>
-		</view>
+		<login v-if="islogin" @send="getLoginValue"></login>
+		<signIn v-if="issign" @send="getSignValue"></signIn>
 		<view style="height: 30rpx;"></view>
 		<view class="sign">
 			<view class="column" @click="tologin()">
@@ -27,14 +21,6 @@
 				<view style="height: 15rpx;"></view>
 				<view class="t">注册</view>
 			</view>
-			<!-- <view style="width: 5%;color:#000000;">|</view> -->
-			<!-- <view class="column" @click="verify()">
-				<view class="iconfont icon-yanzheng" style="font-size: 40rpx;">
-				</view>
-				<view style="height: 15rpx;"></view>
-				<view class="t">验证</view>
-			</view> -->
-			
 		</view>
 		<view class="blank"></view>
 	</view>
@@ -46,35 +32,97 @@
 			return {
 				islogin:true,
 				issign:false,
-				// isverify:false,
-				hasgain:false,
+				lname:"",
+				lpwd:"",
+				sname:"",
+				spwd:"",
+				backButtonPress:0,
 			}
 		},
+		onBackPress(options) {
+			//返回两次退出应用
+			this.backButtonPress++;
+					if (this.backButtonPress > 1) { 
+						plus.runtime.quit();
+					} else {
+						plus.nativeUI.toast('再按一次退出应用');
+					} 
+					setTimeout(()=> {
+						this.backButtonPress = 0;
+					}, 1000);
+					return true;
+		},
 		methods: {
-			login(){
-				//登录工作成功了再跳转
-				uni.navigateTo({
-					url:"../welcome/welcome",
-				})
-			},
 			sign(){
 				//注册
 				this.issign=true;
 				this.islogin=false;
-				this.isverify=false;
-			},
-			verify(){
-				//验证
-				this.islogin=false;
-				this.isverify=true;
-				this.issign=false;
-				
 			},
 			tologin(){
 				//验证
 				this.islogin=true;
-				this.isverify=false;
 				this.issign=false;
+			},
+			async getLoginValue(res){
+				this.lname=res.lname;
+				this.lpwd=res.lpwd;
+				try{
+					const r = await this.request({
+						url: 'http://192.168.43.3:8080/login',
+						method:"GET",
+						sslVerify:false,
+						data: {
+							username:this.lname,
+							password:this.lpwd,
+					     }, })
+					if(r&&r.status!==500){
+						console.log(r.status);
+						this.$store.commit("login",{userName:this.lname,token:r});
+						uni.navigateTo({
+							url:"../welcome/welcome?from=login",
+						})	
+					}
+					else{
+						uni.showToast({
+							image:"../../static/jinggao.png",
+							title:"用户名/密码错误",
+							duration:800,
+						})
+					}
+				}catch(e){
+					console.log(e);
+				}
+			},
+			async getSignValue(res){
+				this.sname=res.sname;
+				this.spwd=res.spwd;
+				//测试注册请求
+				try{
+					const r = await this.request({
+						url: 'http://192.168.43.3:8080/register',
+						method:"GET",
+						data: {
+							username:this.sname,
+							password:this.spwd,
+					     }, })
+					if(r&&r.status!=="405"){
+						//注册并登录
+						console.log(r);
+						this.$store.commit("login",{userName:this.sname,token:r});
+						uni.navigateTo({
+							url:"../welcome/welcome?from=register",
+						})	
+					}
+					else{
+						uni.showToast({
+							image:"../../static/jinggao.png",
+							title:"用户名已存在！",
+							duration:800,
+						})
+					}
+				}catch(e){
+					console.log(e);
+				}
 			}
 		}
 	}

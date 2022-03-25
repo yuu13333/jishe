@@ -1,14 +1,19 @@
 <template>
-	<view>
+	<view style="background-color: #F8F8F8;">
 		<view class="welcome">
 			<view style="width:30%;"></view>
 			<view style="width:40%;display: flex;align-items: center;justify-content: center;">Welcome</view>
-			<view style="width:30%;display: flex;align-items: center;"><view @click="toLogin()" class="iconfont icon-tianjiayonghu" style="position:absolute;right:30rpx;font-size: 55rpx;color:#555555"></view></view>
+			<view style="width:30%;height:100%;display: flex;align-items: center;justify-content: center;">
+			<dt-dropdown :list="list" :current="dropCurrent" @onClick="dropDownChange"></dt-dropdown>
+			</view>
 		</view>
 		<view class="content">
 			<classfication v-if="!isCreate"></classfication>
-			<createProgram v-if="isCreate"></createProgram>
+			<createProgram :programinfo="programInfo" v-if="isCreate&&islog"></createProgram>
+			<noProgram v-if="isCreate&&!islog"></noProgram>
+			<view style="flex:1 1 auto;background-color: #F8F8F8;"></view>
 		</view>
+		
 		<view class="btn">
 			<view class="btn1">
 			<button :class="isCreate?'active':''" @click="create()">
@@ -28,6 +33,53 @@
 <script>
 	import helper from '../../common/common/common.js'
 	export default {
+		onLoad(e) {
+			console.log("welcome!");
+			this.islog=this.$store.state.islog;
+			this.token=this.$store.state.token;
+			console.log(this.$store.state.userName)			
+			if(e.from==="login"&&this.islog){
+				uni.showToast({
+					image:"../../static/chenggong_1.png",
+					title:"登录成功！",
+					duration:700,
+				})
+			};
+			if(e.from==="register"&&this.islog){
+				uni.showToast({
+					image:"../../static/chenggong_1.png",
+					title:"注册成功！",
+					duration:700,
+				})
+			};
+		},
+		async onShow() {
+		//回退时已经清除过了
+		// this.$store.commit("clearProject");
+		//请求项目信息(放在onShow中)
+		console.log("!");
+		if(this.islog){
+			try{
+				const r=await this.request({
+					url: 'http://192.168.43.3:8080/getProgramInfo',
+					method:"GET",
+					data: {
+						token:this.token,
+					 }, })
+				console.log(r);
+				this.programInfo=r;
+				this.$nextTick(()=>{
+						this.isCreate=this.isCreate;
+					});
+				// uni.showToast({
+				// 	title:"数据集已更新",
+				// 	icon:"../../static/chenggong_1.png",
+				// })
+			}catch(error){
+				console.log(error);
+			}
+		}	
+		},
 		onBackPress(options) {
 			//返回两次退出应用
 			this.backButtonPress++;
@@ -45,6 +97,14 @@
 			return {
 				isCreate:true,
 				backButtonPress:0,
+				islog:true,
+				token:"",
+				programInfo:[],
+				list:[
+					"切换账号",
+					"退出登录",
+				],
+				dropCurrent:0,
 			}
 		},
 		methods: {
@@ -54,18 +114,82 @@
 			classify(){
 				this.isCreate = false;
 			},
-			toLogin(){
-				//关于账号的清空操作
-				//首先确定没有未识别照片的残留
-				if(helper.getial().length){
-					
-					//提示一下
+			dropDownChange(index){
+				console.log(this.list[index]);
+				this.dropCurrent = index;
+				if(index===0){
+					//关于账号的清空操作
+					//首先确定没有未识别照片的残留
+					if(helper.getial().length){
+						uni.showModal({
+							content:"还有未识别的照片，是否要继续切换账号？",
+							title:"Tip",
+							success: function (res) {
+									if (res.confirm) {
+										helper.clearial();
+										helper.cleariwl();
+										uni.navigateTo({
+											url:"../login/login"
+										})
+									} else if (res.cancel) {
+										console.log('用户点击取消');
+									}
+								}
+						});
+						//提示一下
+					}
+					else{
+						uni.navigateTo({
+							url:"../login/login"
+						});
+					}
 				}
-				//先不清除缓存的照片和账号id信息
-				//跳转
-				uni.navigateTo({
-					url:"../login/login"
-				})
+				else if(index===1){
+					if(!this.$store.state.islog){
+						uni.showToast({
+							image:"../../static/jinggao.png",
+							title:"当前未登录",
+							duration:800,
+						});
+						return;
+					}
+					if(helper.getial().length){
+						uni.showModal({
+							content:"还有未识别的照片，是否丢弃？",
+							title:"Tip",
+							success: function (res) {
+									if (res.confirm) {
+										helper.clearial();
+										helper.cleariwl();
+										this.$store.commit("logout",{});
+										uni.showToast({
+											image:"../../static/chenggong_1.png",
+											title:"成功退出登录",
+											duration:800
+										})
+										this.islog=this.$store.state.islog;
+										this.token=this.$store.state.token;
+									} else if (res.cancel) {
+										console.log('用户点击取消');
+									}
+								}
+						});
+						//提示一下
+					}
+					else{
+						helper.clearial();
+						helper.cleariwl();
+						this.$store.commit("logout",{});
+						uni.showToast({
+							image:"../../static/chenggong_1.png",
+							title:"成功退出登录",
+							duration:800
+						})
+						this.islog=this.$store.state.islog;
+						this.token=this.$store.state.token;
+					}
+					
+				}
 			}
 		}
 	}
@@ -91,6 +215,8 @@
 	.content{
 		background-color: #F8F8F8;
 		height:83%;
+		display: flex;
+		flex-direction: column;
 	}
 	.btn{
 		height:9%;

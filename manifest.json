@@ -65,6 +65,24 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
+	/*h5相关 跨域配置*/
+	"h5": {
+	        "devServer": {
+	        // "port": 8000,
+	        "disableHostCheck": true,
+	        "proxy": {
+	            "/api": {
+	                "target": "http://localhost:8080",
+	                "changeOrigin": true,
+	                "secure": false,
+	                // 会把程序中/api开头的路径替换成:http://test.com:xxxx/api
+	                "pathRewrite": {
+	                  "^/api": "/" // 设置/api路径重定向
+	                }
+	            }
+	        }
+	    }
+	},
     "uniStatistics" : {
         "enable" : false
     },

@@ -15,7 +15,16 @@
 			<responseInfo></responseInfo>
 			<view style="height:100rpx;"></view>
 		</view>
-		<view class="footer" style="background-color: #FFFFFF;width: 100%;">这是注脚</view>
+		<view class="footer" style="background-color: #FFFFFF;width: 100%;">
+		<view style="width:10%;"></view>
+		<view style="width:80%;">
+		<button v-if="!islog" @click="toAccount()">点击立即登录/创建新账户</button>
+		<button v-if="islog" @click="checkData()">查看所有数据集信息</button>
+		</view>
+		<view style="width:10%;display: flex;justify-content: center;justify-content: center;">
+			<!-- <view class="iconfont icon-deletefill" style="color:#007AFF;">></view> -->
+		</view>
+		</view>
 	</view>
 </template>
 
@@ -25,6 +34,7 @@
 		onLoad(){
 			helper.clearial();
 			helper.cleariwl();
+			this.islog=this.$store.state.islog;
 		},
 		onBackPress(options) {	
 			uni.showModal({
@@ -45,18 +55,27 @@
 		data() {
 			return {
 				imgNum:6,
-				
-				
+				islog:true,
 			}
 		},
 		methods: {
 			toHomePage(){
-				helper.setProject('');
+				this.$store.commit("clearProject");
 				uni.navigateTo({
 					url:"../welcome/welcome"
 				})
+			},
+			checkData(){
+				this.$store.commit("clearProject");
+				uni.navigateTo({
+					url:"../welcome/welcome"
+				})
+			},
+			toAccount(){
+				uni.navigateTo({
+					url:"../login/login"
+				})	
 			}
-			
 		}
 	}
 </script>
@@ -89,6 +108,14 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
+	}
+	button{
+		color:#555555;
+		background-color: #ffffff;
+		font-size: 30rpx;
+	}
+	button::after{
+		border:none;
 	}
 
 </style>
