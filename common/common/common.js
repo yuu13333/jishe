@@ -29,21 +29,6 @@ const cleariwl=()=>{
 const clearial=()=>{
 	imgAwaitLabel.length=0;
 }
-// const setProject=(val)=>{
-// 	currentProject = val;
-// 	cleariwl();
-// 	clearial();
-// }
-
-// const getProject=()=>{
-// 	return currentProject;
-// }
-
-// const clearProject=()=>{
-// 	currentProject='';
-// 	cleariwl();
-// 	clearial();
-// }
 export default {
 	addiwl,
 	addial,
@@ -51,9 +36,6 @@ export default {
 	getial,
 	cleariwl,
 	clearial,
-	// setProject,
-	// getProject,
-	// clearProject,
 	addiwlson,
 	deleteiwl,
 }

@@ -1,5 +1,5 @@
 <template>
-	<scroll-view scroll-x="false" scroll-y="true">
+	<scroll-view scroll-x="false" scroll-y="true" @scroll="scroll">
 	<!-- 	<view style="height:100rpx;"></view> -->
 		<view v-for="(item,index) in cards" :key="index">
 			<uni-card style="height: 320rpx;" title="项目名称" extra="额外信息">
@@ -19,48 +19,23 @@
 </template>
 
 <script>
+	import throttle from "../../utils/optimize/throttle.js"
+	
 	export default {
 		name:"responseInfo",
 		data() {
 			return {
-				cards:[
-					{
+				//当数量比较多时会出现白屏现象
+				cards:new Array(1).fill({
 						title:"有害垃圾",
 						description:"酒精",
 						url:"../../static/logo.png",
 						createTime:new Date(),
-					},
-					{
-						title:"有害垃圾",
-						description:"酒精",
-						url:"../../static/logo.png",
-						createTime:new Date(),
-					},
-					{
-						title:"有害垃圾",
-						description:"酒精",
-						url:"../../static/logo.png",
-						createTime:new Date(),
-					},
-					{
-						title:"有害垃圾",
-						description:"酒精",
-						url:"../../static/logo.png",
-						createTime:new Date(),
-					},
-					{
-						title:"有害垃圾",
-						description:"酒精",
-						url:"../../static/logo.png",
-						createTime:new Date(),
-					},
-					{
-						title:"有害垃圾",
-						description:"酒精",
-						url:"../../static/logo.png",
-						createTime:new Date(),
-					},
-				],
+					}),
+				scrollTData:0,
+				startOffset: 0,
+				start: 0,
+				end: 5,
 			};
 		},
 		methods:{
@@ -83,8 +58,27 @@
 							// 				title: '图片加载失败',
 							// 				type: 'warning'
 							// 			})
+			},
+			scroll(e) {
+			      this.scrollTData = e.target.scrollTop;
+				  console.log("!"+this.scrollTData);
+			      // this.scrollThrottle();
+		    },
+			scrollThrottle:()=>throttle(function () {
+				let scrollTop = this.scrollTData; // e.target.scrollTop;
+				// 此时的开始索引
+				this.start =
+					Math.floor(scrollTop / this.itemSize) - this.prevCount >= 0
+					? Math.floor(scrollTop / this.itemSize) - this.prevCount
+					: 0;
+				// 此时的结束索引
+				this.end = Number(this.start) + Number(this.count) + Number(this.nextCount);
+				// 此时的偏移量
+				// console.log('位置', this.start, this.end);
+				this.startOffset = Number(this.start) * Number(this.itemSize);
+				}, 0)
+
 			}
-		}
 	}
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-		<scroll-view class="content">
+		<scroll-view class="content" @scroll="scroll()">
 		<view class="cards" v-for="(item,index) in programinfo" @click="clickCard(item)" :key="index">
 			<uni-card style="height: 400rpx;" :title="item.title" extra="删除数据集">
 				<view class="cardview">
@@ -53,6 +53,9 @@
 		},
 		
 		methods:{
+			scroll(e){
+			console.log("scroll");	
+			},
 			onInputName(e){
 				this.value = e.detail.value;
 			},

@@ -2963,7 +2963,15 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-uni-scroll-view",
-    { staticClass: _vm._$g(0, "sc"), attrs: { _i: 0 } },
+    {
+      staticClass: _vm._$g(0, "sc"),
+      attrs: { _i: 0 },
+      on: {
+        scroll: function($event) {
+          return _vm.$handleViewEvent($event)
+        }
+      }
+    },
     [
       _vm._l(_vm._$g(1, "f"), function(item, index, $20, $30) {
         return _c(
@@ -6498,7 +6506,15 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-uni-scroll-view",
-    { attrs: { "scroll-x": "false", "scroll-y": "true", _i: 0 } },
+    {
+      staticStyle: { height: "2000rpx" },
+      attrs: { "scroll-x": "false", "scroll-y": "true", _i: 0 },
+      on: {
+        scroll: function($event) {
+          return _vm.$handleViewEvent($event)
+        }
+      }
+    },
     _vm._l(_vm._$g(1, "f"), function(item, index, $20, $30) {
       return _c(
         "v-uni-view",
