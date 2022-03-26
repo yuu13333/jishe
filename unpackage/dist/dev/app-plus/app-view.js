@@ -5379,6 +5379,22 @@ var render = function() {
               )
             ],
             1
+          ),
+          _c(
+            "v-uni-view",
+            {
+              staticClass: _vm._$g(67, "sc"),
+              staticStyle: {
+                color: "#A5A5A5",
+                width: "100%",
+                display: "flex",
+                "align-items": "center",
+                "justify-content": "center",
+                "font-size": "25rpx"
+              },
+              attrs: { _i: 67 }
+            },
+            [_vm._v("单次识别图片数量上限为：20")]
           )
         ],
         1
@@ -6507,7 +6523,7 @@ var render = function() {
   return _c(
     "v-uni-scroll-view",
     {
-      staticStyle: { height: "2000rpx" },
+      staticClass: _vm._$g(0, "sc"),
       attrs: { "scroll-x": "false", "scroll-y": "true", _i: 0 },
       on: {
         scroll: function($event) {
@@ -6515,70 +6531,97 @@ var render = function() {
         }
       }
     },
-    _vm._l(_vm._$g(1, "f"), function(item, index, $20, $30) {
-      return _c(
+    [
+      _c(
         "v-uni-view",
-        { key: item, attrs: { _i: "1-" + $30 } },
+        { staticClass: _vm._$g(1, "sc"), attrs: { _i: 1 } },
         [
+          _c("v-uni-view", { style: _vm._$g(2, "s"), attrs: { _i: 2 } }),
           _c(
-            "uni-card",
-            { staticStyle: { height: "320rpx" }, attrs: { _i: "2-" + $30 } },
-            [
-              _c(
+            "v-uni-view",
+            {
+              staticClass: _vm._$g(3, "sc"),
+              style: _vm._$g(3, "s"),
+              attrs: { _i: 3 }
+            },
+            _vm._l(_vm._$g(4, "f"), function(item, index, $20, $30) {
+              return _c(
                 "v-uni-view",
-                {
-                  staticClass: _vm._$g("3-" + $30, "sc"),
-                  attrs: { _i: "3-" + $30 }
-                },
+                { key: item, attrs: { _i: "4-" + $30 } },
                 [
-                  _c("v-uni-image", {
-                    staticStyle: { width: "150rpx", height: "150rpx" },
-                    attrs: {
-                      src: _vm._$g("4-" + $30, "a-src"),
-                      _i: "4-" + $30
-                    },
-                    on: {
-                      click: function($event) {
-                        return _vm.$handleViewEvent($event)
-                      }
-                    }
-                  }),
-                  _c("v-uni-view", {
-                    staticStyle: { width: "50rpx" },
-                    attrs: { _i: "5-" + $30 }
-                  }),
                   _c(
-                    "v-uni-view",
+                    "uni-card",
                     {
-                      staticStyle: {
-                        display: "flex",
-                        "flex-direction": "column",
-                        "justify-content": "space-around",
-                        "align-items": "flex-start",
-                        width: "60%"
-                      },
-                      attrs: { _i: "6-" + $30 }
+                      staticStyle: { height: "320rpx" },
+                      attrs: { _i: "5-" + $30 }
                     },
                     [
-                      _c("v-uni-view", { attrs: { _i: "7-" + $30 } }, [
-                        _vm._v("- 垃圾种类：" + _vm._$g("7-" + $30, "t0-0"))
-                      ]),
-                      _c("v-uni-view", { attrs: { _i: "8-" + $30 } }, [
-                        _vm._v("- 分属于：" + _vm._$g("8-" + $30, "t0-0"))
-                      ]),
                       _c(
                         "v-uni-view",
-                        { attrs: { _i: "9-" + $30 } },
+                        {
+                          staticClass: _vm._$g("6-" + $30, "sc"),
+                          attrs: { _i: "6-" + $30 }
+                        },
                         [
-                          _vm._v("- 创建于："),
-                          _c("br", { attrs: { _i: "10-" + $30 } }),
-                          _c(
-                            "v-uni-text",
-                            {
-                              staticStyle: { "font-size": "25rpx" },
-                              attrs: { _i: "11-" + $30 }
+                          _c("v-uni-image", {
+                            staticStyle: { width: "150rpx", height: "150rpx" },
+                            attrs: {
+                              mode: "aspectFill",
+                              src: _vm._$g("7-" + $30, "a-src"),
+                              _i: "7-" + $30
                             },
-                            [_vm._v(_vm._$g("11-" + $30, "t0-0"))]
+                            on: {
+                              click: function($event) {
+                                return _vm.$handleViewEvent($event)
+                              }
+                            }
+                          }),
+                          _c("v-uni-view", {
+                            staticStyle: { width: "50rpx" },
+                            attrs: { _i: "8-" + $30 }
+                          }),
+                          _c(
+                            "v-uni-view",
+                            {
+                              staticStyle: {
+                                display: "flex",
+                                "flex-direction": "column",
+                                "justify-content": "space-around",
+                                "align-items": "flex-start",
+                                width: "60%"
+                              },
+                              attrs: { _i: "9-" + $30 }
+                            },
+                            [
+                              _c("v-uni-view", { attrs: { _i: "10-" + $30 } }, [
+                                _vm._v(
+                                  "- 垃圾种类：" + _vm._$g("10-" + $30, "t0-0")
+                                )
+                              ]),
+                              _c("v-uni-view", { attrs: { _i: "11-" + $30 } }, [
+                                _vm._v(
+                                  "- 分属于：" + _vm._$g("11-" + $30, "t0-0")
+                                )
+                              ]),
+                              _c(
+                                "v-uni-view",
+                                { attrs: { _i: "12-" + $30 } },
+                                [
+                                  _vm._v("- 创建于："),
+                                  _c("br", { attrs: { _i: "13-" + $30 } }),
+                                  _c(
+                                    "v-uni-text",
+                                    {
+                                      staticStyle: { "font-size": "25rpx" },
+                                      attrs: { _i: "14-" + $30 }
+                                    },
+                                    [_vm._v(_vm._$g("14-" + $30, "t0-0"))]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
                           )
                         ],
                         1
@@ -6589,13 +6632,13 @@ var render = function() {
                 ],
                 1
               )
-            ],
+            }),
             1
           )
         ],
         1
       )
-    }),
+    ],
     1
   )
 }
@@ -6632,7 +6675,7 @@ __webpack_require__.r(__webpack_exports__);
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 {
-  name: "responseInfo",
+  name: "responseInfo", props: ["listData"],
   data: function data() {
     return {
       wxsProps: {} };
@@ -6687,7 +6730,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.cardview[data-v-017f8438]{\n\theight: 200rpx;\n\tbottom: 0;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: space-between;\n}\nuni-scroll-view[data-v-017f8438]{\n\tbackground-color: #F0F0F0;\n}\n", ""]);
+exports.push([module.i, "\n.sickBody[data-v-017f8438]{\n\tposition: fixed;\n\t  left: 0;\n\t  top: 0;\n\t  width: 100%;\n\t  height: 100%;\n\t  background: #f4f4f4;\n\t  z-index: 99;\n}\n.cardview[data-v-017f8438]{\n\theight: 200rpx;\n\tbottom: 0;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: space-between;\n}\nuni-scroll-view[data-v-017f8438]{\n\tbackground-color: #F0F0F0;\n}\n.positionRelative[data-v-017f8438] {\n  width: 92%;\n  margin: 0 3%;\n  position: absolute;\n  left: 0;\n  top: 0;\n  font-size: 32rpx;\n  padding-bottom: 300rpx;\n}\n.parentDom[data-v-017f8438]{\n\tposition:relative;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

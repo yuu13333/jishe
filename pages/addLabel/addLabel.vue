@@ -112,6 +112,9 @@
 				</uni-popup>
 				</view>
 			</view>
+			<view class="lastTime" style="color:#A5A5A5;width:100%;display: flex;align-items: center;justify-content: center;font-size: 25rpx;">
+				单次识别图片数量上限为：20
+			</view>
 		</view>
 	</view>
 </template>
