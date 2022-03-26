@@ -13,6 +13,11 @@ export default (params) => {
       },
       fail (err) {
         reject(err);
+		console.log(err);
+		uni.showToast({
+			title:"服务器连接失败",
+			image:"../../static/jinggao.png",
+		});
       },
       complete () {
         uni.hideLoading();

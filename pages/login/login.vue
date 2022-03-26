@@ -75,14 +75,15 @@
 							username:this.lname,
 							password:this.lpwd,
 					     }, })
-					if(r&&r.status!==500){
-						console.log(r.status);
+					if(r&&!r.status){
+						console.log(r);
 						this.$store.commit("login",{userName:this.lname,token:r});
 						uni.navigateTo({
 							url:"../welcome/welcome?from=login",
 						})	
 					}
 					else{
+						console.log(r);
 						uni.showToast({
 							image:"../../static/jinggao.png",
 							title:"用户名/密码错误",
@@ -120,8 +121,14 @@
 							duration:800,
 						})
 					}
+					
 				}catch(e){
 					console.log(e);
+					// uni.showToast({
+					// 	image:"../../static/jinggao.png",
+					// 	title:"请求失败",
+					// 	duration:800,
+					// })
 				}
 			}
 		}

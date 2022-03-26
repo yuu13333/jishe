@@ -10,10 +10,8 @@
 			</view>
 			<view style="width:2rpx"></view>
 		</view>
-		<view class="content">
-			<view style="height:100rpx;"></view>
+		<view style="position:fixed;top:100rpx;height: 83%;width:100%;">
 			<responseInfo></responseInfo>
-			<view style="height:100rpx;"></view>
 		</view>
 		<view class="footer" style="background-color: #FFFFFF;width: 100%;">
 		<view style="width:10%;"></view>
@@ -108,6 +106,7 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
+		z-index: 19999;
 	}
 	button{
 		color:#555555;

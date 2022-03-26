@@ -14,16 +14,21 @@ const store = new Vuex.Store({
 		login(state, provider) {   
 		      state.islog = true;  
 		      state.token = provider.token;  
-		      state.userName = provider.userName;   
+		      state.userName = provider.userName;
+			  
 		    }, 
 		offline(state,provider){
 			state.islog = false;
+			state.token = '';
+			state.userName = ''; 
+			state.currentProject='';
 		},
 		logout(state) {  
 		      state.islog = false;  
 		      state.token = '';  
-		      state.userName = '';    
-		    },  
+		      state.userName = '';  
+			  state.currentProject='';
+		},  
 		setProject(state,provider){
 			state.currentProject=provider.val;
 		},

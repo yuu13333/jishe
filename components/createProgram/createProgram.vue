@@ -95,18 +95,21 @@
 											des:this.description
 										 },
 									})
-									this.$store.commit("setProject",{val:r});
-									helper.clearial();
-									helper.cleariwl();
-									console.log(r);
-									
-									//会将之前的图片与标签清空
-									setTimeout(() => {
-										uni.hideLoading();
+									if(r){
+										this.$store.commit("setProject",{val:r});
+										helper.clearial();
+										helper.cleariwl();
+										console.log(r);
 										uni.navigateTo({
-											url:"../../pages/ProgramInfo/ProgramInfo?val="+this.value+"&des="+this.description
+												url:"../../pages/ProgramInfo/ProgramInfo?val="+this.value+"&des="+this.description
+										});
+									}
+									else{
+										uni.showToast({
+											image:"../../static/jinggao.png",
+											title:"创建失败！",
 										})
-									}, 1000)
+									}
 								}catch(e){
 									console.log(e);
 								}

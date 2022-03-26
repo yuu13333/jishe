@@ -56,7 +56,7 @@
 		data() {
 			return {
 				//当数量比较多时会出现白屏现象
-				cards:new Array(100).fill({
+				cards:new Array(1).fill({
 						title:"有害垃圾",
 						description:"酒精",
 						url:"../../static/background.jpg",
@@ -118,7 +118,7 @@
 
 <style>
 	.sickBody{
-		position: fixed;
+		position: absolute;
 		  left: 0;
 		  top: 0;
 		  width: 100%;
@@ -138,12 +138,11 @@
 	}
 	.positionRelative {
 	  width: 92%;
-	  margin: 0 3%;
+	  margin: 0 2%;
 	  position: absolute;
-	  left: 0;
 	  top: 0;
 	  font-size: 32rpx;
-	  padding-bottom: 300rpx;
+	  padding-bottom: 100rpx;
 	}
 	.parentDom{
 		position:relative;
