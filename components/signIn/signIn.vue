@@ -1,43 +1,47 @@
 <template>
 	<view class="form">
+		<view style="height:30rpx;"></view>
 		<view class="grey">
 			<view style="width:50rpx;"></view>
-			<view class="iconfont icon-zhuce" style="width: 10%;font-size: 45rpx;"></view>
+			<view class="iconfont icon-zhuce" style="width: 10%;font-size: 35rpx;color:#999999;"></view>
 			<view style="width:15rpx;"></view>
-			<view style="width:5%;color:#000000;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
+			<view style="width:5%;color:#999999;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
 			<view style="width:15rpx;"></view>
-			<view><input type="text" @input="onInputName" placeholder="请设置用户名" placeholder-style="color:#000000;"/></view>
+			<view><input type="text" @input="onInputName" placeholder="请设置用户名" placeholder-style="color:#999999;font-size:30rpx;"/></view>
 		</view>
+		<view style="height:30rpx;"></view>
 		<view class="grey">
 			<view style="width:50rpx;"></view>
-			<view class="iconfont icon-mima1" style="width: 10%;font-size: 50rpx;"></view>
+			<view class="iconfont icon-mima1" style="width: 10%;font-size: 40rpx;color:#999999;"></view>
 			<view style="width:15rpx;"></view>
-			<view style="width:5%;color:#000000;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
+			<view style="width:5%;color:#999999;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
 			<view style="width:15rpx;"></view>
 			<view>
-				<input :class="isvalid?'true':'false'" type="text" @input="onInputPwd" placeholder="请设置密码" placeholder-style="color:#000000;" />
+				<input :class="isvalid?'true':'false'" type="text" @input="onInputPwd" placeholder="请设置密码" placeholder-style="color:#999999;font-size:30rpx;" />
 			</view>
 		</view>
-		<view style="color: #E43D33;" v-if="!isvalid&&!(spwd===''&&repwd==='')">两次输入密码不一致</view>
+		<view style="height:15rpx;"></view>
+		<view style="color: #E43D33;font-size: ;" v-if="!isvalid&&!(spwd===''&&repwd==='')">两次输入密码不一致</view>
+		<view style="height:15rpx;"></view>
 		<view class="grey">
 			<view style="width:50rpx;"></view>
-			<view class="iconfont icon-yanzheng" style="width: 10%;font-size: 45rpx;"></view>
+			<view class="iconfont icon-yanzheng" style="width: 10%;font-size: 35rpx;color:#999999;"></view>
 			<view style="width:15rpx;"></view>
-			<view style="width:5%;color:#000000;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
+			<view style="width:5%;color:#999999;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
 			<view style="width:15rpx;"></view>
 			<view>
-				<input :class="isvalid?'true':'false'" type="text" @input="verifyName" placeholder="确认密码" placeholder-style="color:#000000;" />
+				<input :class="isvalid?'true':'false'" type="text" @input="verifyName" placeholder="确认密码" placeholder-style="color:#999999;font-size:30rpx;" />
 			</view>
 		</view>
+		<view style="height:30rpx;"></view>
 		<view class="tip" @click="toOffLine()">
-			点击此处进入游客模式，支持离线识别。
+			点击此处进入游客模式体验服务。
 		</view>
+		<view style="height:30rpx;"></view>
 		<view class="btn">
-			<button class="login" @click="sendToPage()">注册</button>
+			<button class="bg-gradual-blue padding radius text-center shadow-blur" style="border-radius: 100rpx;" @click="sendToPage()">注册</button>
 		</view>
-		</view>
-		
-		
+		</view>	
 	</view>
 </template>
 
@@ -103,11 +107,14 @@
 
 <style>
 	@import url("../../common/login/iconfont.css");
+	@import url("../../colorui/main.css");
+	@import url("../../colorui/icon.css");
 	.grey{
-		height: 120rpx;
+		height: 90rpx;
 		width:500rpx;
 		border-radius: 100rpx;
-		background-color: #F8F8F8;
+		/* background-color: #F8F8F8; */
+		border:1px solid #F8F8F8;
 		display:flex;
 		align-items: center;
 		justify-content: center;
@@ -148,5 +155,18 @@
 	}
 	.false{
 		color:#E43D33;
+	}
+	button{
+		color:#FFFFFF;
+		height: 80rpx;
+		width:500rpx;
+		font-size:35rpx;
+		border-radius: 100rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	button:after{
+		border:none;
 	}
 </style>

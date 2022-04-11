@@ -1,8 +1,5 @@
 <template>
-	<view style="height:100vh" class="content">
-		<view style="height:250rpx">
-			
-		</view>
+	<view style="height:1000rpx;"  class="content">
 		<view style="height:600rpx;color:#CCCCCC" class="content">
 			<view class="iconfont icon-delete1" style="font-size:200rpx;"></view>
 			<view style="height: 60rpx;"></view>
@@ -12,9 +9,6 @@
 				<view>To view the list of datasets, </view>
 <view>please log in first!</view></view>
 		</view>
-		<view style="height:250rpx">
-		</view>
-		
 	</view>
 </template>
 

@@ -56,7 +56,7 @@
 					<view style="width:100%;border-bottom:1rpx solid #C0C0C0;">选择标签</view>
 					<scroll-view scroll-y="true" show-scrollbar="true" style="height:300rpx;width:80%;display: flex;align-items: center;justify-content: center;">
 					<radio-group @change="categoryChange" style="width: 80%;">
-						<label style="display: flex;" class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in categories" :key="item.value">
+						<label style="display: flex;" class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in categories" :key="item.id">
 							<view>
 							<radio :value="item.value" :checked="index === currentLabel" />
 							</view>
@@ -99,9 +99,9 @@
 				<view style="width:100%;border-bottom:1rpx solid #C0C0C0;">选择存储位置</view>
 				<scroll-view scroll-y="true" show-scrollbar="true" style="height:300rpx;width:80%;display: flex;align-items: center;justify-content: center;">
 				<radio-group @change="radioChange" style="width: 80%;">
-					<label style="display: flex;" class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
+					<label style="display: flex;align-items: center;justify-content: center;flex-direction: column;" class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.id">
 						<view>
-						<radio :value="item.value" :checked="index === current" />
+						<radio :value="item.id" :checked="index === current" />
 						</view>
 						<view>{{item.name}}</view>
 					</label>
@@ -115,6 +115,7 @@
 			<view class="lastTime" style="color:#A5A5A5;width:100%;display: flex;align-items: center;justify-content: center;font-size: 25rpx;">
 				单次识别图片数量上限为：20
 			</view>
+			<!-- <image src="../../static/bottom.png" mode="widthFix"></image> -->
 		</view>
 	</view>
 </template>
@@ -139,15 +140,19 @@
 			// }
 			//全局变量代替暂时存储
 			this.islog=this.$store.state.islog;
+			this.items=this.$store.state.projectlist;
+			console.log(this.currentProject);
+			// console.log(this.items);
 			this.imgurls=helper.getial();
 			this.imglabels=helper.getiwl(); 
-			console.log(this.imgurls.length);
+			// console.log(this.imgurls.length);
 			for(let i=0;i<this.imgurls.length;i++){
 				if(this.imgurls[i].length>0&&this.imglabels.has(this.imgurls[i])){
 				this.indexLabel[i]=this.imglabels.get(this.imgurls[i])[0];
 				this.indexSonLabel[i]=this.imglabels.get(this.imgurls[i])[1];
 				}
 			}
+			
 			this.$forceUpdate();
 		},
 		data() {
@@ -163,29 +168,7 @@
 				currentLabel:0,
 				indexLabel:new Array(20).fill(undefined),
 				indexSonLabel:new Array(20).fill(undefined),
-				items: [{
-				                    value: '项目一id',
-				                    name: '项目一',
-									 checked: 'true'
-				                },
-				                {
-				                    value: '项目二id',
-				                    name: '项目二',
-				                },
-				                {
-				                    value: '项目三id',
-				                    name: '项目三'
-				                },
-								{
-								    value: '项目四id',
-								    name: '项目四',
-								},
-								{
-								    value: '项目五id',
-								    name: '项目五'
-								},
-				              
-				            ],
+				items: [],
 				categories:[{
 					value:'其他垃圾',
 					name:'其他垃圾',
@@ -201,7 +184,8 @@
 				},{
 					value:'有害垃圾',
 					name:'有害垃圾'
-				}]
+				}],
+				photoid:[],
 			}
 		},
 		methods: {
@@ -222,7 +206,7 @@
 				}
 			},
 			
-			toInfo(){
+			async toInfo(){
 				for(let i=0;i<this.imgurls.length;i++){
 					if(this.indexLabel[i]===undefined){
 						uni.showToast({
@@ -238,20 +222,54 @@
 				
 				//判断是否登录--离线识别
 				if(!this.islog){
-					//离线识别
-					//结果传递给requestinfo页面
-					uni.navigateTo({
-						url:"../Requestinfo/Requestinfo"
-					})
+					//不需要projectid
+					
+					
 				}
 				else{
 					if(currentproject==='')
 						this.$refs.submitPop.open();
 					else{
 						//在线识别 结果传递
-						uni.navigateTo({
-							url:"../Requestinfo/Requestinfo"
-						})
+						for(let i=0;i<this.imgurls.length;i++){
+							// console.log("image:"+this.imgurls[i]+",label:"+this.indexLabel[i]+",sub_label:"+this.indexSonLabel[i]);
+							try{
+								const r = await this.request({
+									url: 'http://8.130.100.210:80/photo',
+									method:"POST",
+									header: {
+										'content-type': 'application/x-www-form-urlencoded', 
+									},
+									data: {
+										token:this.$store.state.token,
+										collection_id:currentproject,
+										image:this.imgurls[i],
+										label:this.indexLabel[i],
+										sub_label:this.indexSonLabel[i],
+										},
+								})
+								if(r.code===200){
+									console.log(r);
+									this.photoid.push(r.photo_id);
+									if(i===this.imgurls.length-1){
+										//结果传递给requestinfo页面
+										uni.navigateTo({
+											url:"../loading/loading?ids="+this.photoid
+										})
+									}
+								}
+								else{
+									uni.showToast({
+										image:"../../static/jinggao.png",
+										title:"识别请求失败！",
+									})
+									break;
+								}
+							}catch(e){
+								console.log(e);
+								break;
+							}
+						}
 					}
 				}
 			},

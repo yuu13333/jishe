@@ -6,7 +6,7 @@
 				<view style="color:#FFFFFF;height:30%;"><text class="flex flex-direction" style="font-size: 50rpx;">{{projectName}}</text></view>
 				<view style="border:1rpx solid #FFFFFF;width:100%;"></view>
 				<view style="height:30rpx;"></view>
-				<view style="color:#FFFFFF;height:10%;"><text style="font-size: 30rpx;">{{String(new Date()).slice(0,-14)}}</text></view>
+				<view style="color:#FFFFFF;height:10%;"><text style="font-size: 30rpx;">{{projectTime}}</text></view>
 				<view style="height:30rpx;"></view>
 				<view style="color:#ffffff;height:50%;font-size: 30rpx;"><text class="flex flex-direction">{{projectDescription}}</text></view>
 		</view>
@@ -20,7 +20,7 @@
 				<view style="height:40rpx;">
 				</view>
 				<view style="width:100%;height:10%;color: #FFFFFF;display: flex;align-items: center;justify-content: center;">
-					Overview
+					统计分析
 				</view>
 			</view>
 			<view class="btn" @click="chooseImage()">
@@ -29,7 +29,7 @@
 				<view style="height:40rpx;">
 				</view>
 				<view style="width:100%;height:10%;color: #FFFFFF;display: flex;align-items: center;justify-content: center;">
-					Add photos
+					添加图片
 				</view>
 			</view>
 		</view>
@@ -41,7 +41,7 @@
 				<view style="height:30rpx;">
 				</view>
 				<view style="width:100%;height:10%;color: #FFFFFF;display: flex;align-items: center;justify-content: center;">
-					Add Label
+					添加标签
 				</view>
 			</view>
 			<view class="btn" @click="toImgInfo()">
@@ -50,7 +50,7 @@
 				<view style="height:30rpx;">
 				</view>
 				<view style="width:100%;height:10%;color: #FFFFFF;display: flex;align-items: center;justify-content: center;">
-					Data Info
+					查看详情
 				</view>
 			</view>
 		</view>
@@ -70,19 +70,19 @@
 		    return false;
 		},
 		onLoad(name){
-			
 			this.projectName=name.val;
 			this.projectDescription=name.des;
+			this.projectTime=name.time;
 		},
 		
 		data() {
 			return {
 				projectName:'',
 				projectDescription:'',
+				projectTime:'',
 			}
 		},
 		methods: {
-			
 			chooseImage() {
 					var _this = this
 					uni.chooseImage({
@@ -243,7 +243,7 @@
 		width:450rpx;
 		height:110rpx;
 		background-color: #000000;
-		color: #FFFFFF;
+		color: #000;																																																																																																																																																																																																																																																																																																																																																																																									olor: #FFFFFF;
 		display: flex;
 		align-items: center;
 		justify-content: center;

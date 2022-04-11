@@ -1,12 +1,12 @@
 <template>
 	<view class="content">
 		<view class="header" :class="ismanage?'ismanage':'nomanage'">
-			<view style="width:35rpx;"></view><image class="programAvatar" src="../../static/logo.png"></image><view style="width:35rpx;"></view><view style="display: flex;flex-direction: column;justify-content: space-around;height:80%;"><view>Collection 1</view><view>Description</view></view>
+			<view style="width:35rpx;"></view><image class="programAvatar" src="../../static/logo.png"></image><view style="width:35rpx;"></view><view style="display: flex;flex-direction: column;justify-content: space-around;height:80%;"><view>{{projectName}}</view><view>{{projectDescription}}</view></view>
 			<view style="width:200rpx;"></view>
 			<view @click="tomanage()" :class="ismanage?'ismanage':'nomanage'" class="iconfont icon-shujujiguanli" style="font-size: 80rpx;"></view>
 		</view>		
 		<view class="info">
-			<echarts v-if="!ismanage"></echarts>
+			<echarts v-if="!ismanage" :photoNumber="photoNumber" :classNumber="classNumber" :createTime="projectTime"></echarts>
 			<uni-transition style="width:100%;width:100%;" mode-class="fade" :duration="100" :show="ismanage">
 				<programImgManage style="width:100%;width:100%;"></programImgManage>
 			</uni-transition>
@@ -19,11 +19,21 @@
 	export default {
 		onLoad(){
 			//通过id请求得到项目的一些信息
+			this.currentProject=this.$store.state.currentProject;
+			this.getCollectionInfo();
+		},
+		onShow() {
+			
 		},
 		data() {
 			return {
-				ismanage:false,
+				currentProject:'',
 				projectName:'',
+				projectDescription:'',
+				projectTime:'',
+				ismanage:false,
+				photoNumber:0,
+				classNumber:0,
 				imgNum:100,
 				typeNum:26,
 				chartData:{
@@ -66,6 +76,35 @@
 		methods: {
 			tomanage(){
 				this.ismanage=!this.ismanage;
+			},
+			async getCollectionInfo(){
+				console.log(this.$store.state.currentProject);
+				try{
+					const r = await this.request({
+						url: 'http://8.130.100.210:80/collection',
+						method:"GET",
+						data: {
+							collection_id:this.$store.state.currentProject,
+							image_code:0
+						 }, })
+					// console.log(r.slice(1,100)); 
+					if(r.code===200){
+						this.projectName=r.name;
+						this.projectDescription=r.description;
+						this.projectTime=r.created_time;
+						this.photoNumber=r.photo_number;
+						this.classNumber=r.class_number;
+					}
+					else{
+						uni.showToast({
+							image:"../../static/jinggao.png",
+							title:"资源请求异常"
+						})
+						
+					}
+				}catch(e){
+					console.log(e);//TODO handle the exception
+				}
 			}
 			
 		}

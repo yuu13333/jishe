@@ -1,32 +1,58 @@
 <template>
-		<scroll-view class="content" @scroll="scroll()">
-		<view class="cards" v-for="(item,index) in programinfo" @click="clickCard(item)" :key="index">
-			<uni-card style="height: 400rpx;" :title="item.title" extra="删除数据集">
+		<scroll-view class="content1" @scroll="scroll()">
+		<view class="cu-card case" style="display:flex;flex-direction:column;align-items: center;" v-for="(item,index) in programinfo" @click="clickCard(item)" :key="index">
+<!-- 			<uni-card  style="height: 380rpx;border-radius: 20rpx;" :title="item.title" extra="删除数据集">
 				<view class="cardview">
 				<image style="width:150rpx;height: 150rpx;border-radius: 400rpx;" :src="item.url"></image>
 				<view style="width:50rpx"></view>
-			    <text>{{item.description}}</text>
+			    <text style="color:#FFFFFF;">{{item.description}}</text>
 				</view>
-			</uni-card>
+			</uni-card> -->
+			<view class="cu-item" style="width: 90%;border:1rpx solid #f8f8f8;border-radius: 30rpx;">
+				<view class="image" style="height:350rpx;overflow: hidden;">
+					<image :src="item.image?item.image:'../../static/noimg.png'" mode="widthFix" ></image>
+					<view class="cu-tag bg-blue">垃圾种类</view>
+					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{item.description}}</text></view>
+				</view>
+				<view class="cu-list menu-avatar" style="border-bottom: none;">
+					<view class="cu-item">
+						<!-- <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view> -->
+						<view class="content flex-sub" style="background-color: #FFFFFF;transform:translateX(-100rpx);width:90%;">
+							<view class="text-grey">{{item.name}}</view>
+							<view class="text-gray text-sm flex justify-between">
+								{{item.created_time}}
+								<view class="text-gray text-sm">
+									<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
 		</view>
 		<view>
 			<view style="height: 300rpx;display: flex;align-items: center;justify-content: center;">
-				<button class="button" type="primary" @click="openDialog()"><view class="iconfont icon-tianjiaxiangmu1" style="font-size: 60rpx;"></view><view style="width:30rpx;" ></view>创建新项目</button>
+				<button class="button bg-gradual-blue padding radius text-center shadow-blur" type="primary" @click="openDialog()"><view class="iconfont icon-tianjiaxiangmu1" style="font-size: 60rpx;"></view><view style="width:30rpx;"></view>创建个人项目</button>
 			</view>
 				<uni-popup ref="dialogInput" type="dialog">
-				<view style="width:580rpx;height: 600rpx;background-color: #FFFFFF;border-radius: 10rpx;text-align: center;line-height: 100rpx;display:flex;flex-direction: column; justify-content: space-between;align-items: center;overflow: hidden;">
-				<view style="display: flex;"><view class="iconfont icon-xinjian" style="font-size: 50rpx;"></view><view style="width:15rpx;"></view>创建新项目</view>
+				<view style="width:580rpx;height: 600rpx;border-radius: 30rpx;text-align: center;line-height: 100rpx;display:flex;flex-direction: column; justify-content: space-between;align-items: center;overflow: hidden;background-color: #FFFFFF;">
 				<view style="width:100%;flex:1 1 auto;display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
+				<view style="display: flex;color:#000000;"><view style="width:15rpx;"></view>创建项目</view>
+				<view style="height:20rpx;"></view>
 				<view style="width:100%;display: flex;justify-content: center;">
-					<input type="text" @input="onInputName" style="width: 80%;height:100rpx;border:1rpx solid #D8D8D8;border-radius: 10rpx;" placeholder="项目名称"/></view>
+					<input type="text" @input="onInputName" style="width: 80%;height:100rpx;border:1rpx solid #D8D8D8;border-radius: 40rpx;" placeholder="项目名称"/></view>
+				<view style="height:10rpx;"></view>
 				<view style="width:100%;display: flex;justify-content: center;">
-					<view style="width:80%;border:1rpx solid #D8D8D8;height:200rpx;border-radius: 10rpx;display: flex;justify-content: center;align-items: center;">
-					<textarea @input="onInputDescription" style="width:80%;height:80%;"  type="text" placeholder="项目描述"/></view></view>
+					<view style="width:80%;border:1rpx solid #D8D8D8;height:200rpx;border-radius: 40rpx;display: flex;justify-content: center;align-items: center;">
+					<view style="height:10rpx;"></view>
+					<scroll-view style="height:90%;width:80%;" scroll-y="true"><textarea @input="onInputDescription" style="width:100%;height:80%;" type="text" placeholder="项目描述" placeholder-style="top:50%;"/></scroll-view>
+					</view>
 				</view>
-				<view style="display: flex;width:100%;justify-content: space-between;border-top:1rpx solid #D8D8D8;"><button style="background-color: #007AFF;color:#FFFFFF;border-top:1rpx solid #007AFF;" @click="closeDialog()">取消</button><button style="background-color: #FFFFFF;color:#007AFF" @click="dialogInputConfirm()">确认</button></view>
 				</view>
-				</uni-popup>
-				
+				<view style="height:20rpx;"></view>
+				<view style="display: flex;width:100%;justify-content: space-between;border-top:1rpx solid #D8D8D8;"><button style="background-color: #1890FF;color:#FFFFFF;border-top:1rpx solid #1890FF;" @click="closeDialog()">取消</button><button style="background-color: #FFFFFF;color:#1890FF" @click="dialogInputConfirm()">确认</button></view>
+				</view>
+				</uni-popup>		
 		</view>
 		</scroll-view>
 </template>
@@ -44,11 +70,19 @@
 			this.value="";
 			this.description="";
 		},
+		watch:{
+			programinfo: function(val, oldVal) {
+					// console.log('new: %s, old: %s', val, oldVal);
+					this.isShowArr = true;
+			}
+		},
 		data() {
 			return {
 				msgType: 'success',
 				value: '',
 				description:'',
+				isShowArr:false,
+				
 			};
 		},
 		
@@ -87,21 +121,24 @@
 								//服务器请求新建
 								try{
 									const r = await this.request({
-										url: 'http://192.168.43.3:8080/createProgram',
-										method:"GET",
+										url: 'http://8.130.100.210:80/collection',
+										method:"POST",
+										header: {
+											'content-type': 'application/x-www-form-urlencoded', 
+										},
 										data: {
 											token:this.$store.state.token,
 											name:this.value,
-											des:this.description
+											description:this.description
 										 },
 									})
-									if(r){
-										this.$store.commit("setProject",{val:r});
+									if(r.code===200){
+										console.log(r.collection_id);
+										this.$store.commit("setProject",{val:r.collection_id});
 										helper.clearial();
 										helper.cleariwl();
-										console.log(r);
 										uni.navigateTo({
-												url:"../../pages/ProgramInfo/ProgramInfo?val="+this.value+"&des="+this.description
+												url:"../../pages/ProgramInfo/ProgramInfo?val="+this.value+"&des="+this.description+"&id="+r.collection_id
 										});
 									}
 									else{
@@ -122,7 +159,7 @@
 				helper.cleariwl();
 				console.log(item.id);
 				uni.navigateTo({
-					url:"../../pages/ProgramInfo/ProgramInfo?val="+item.title+"&des="+item.description,
+					url:"../../pages/ProgramInfo/ProgramInfo?val="+item.name+"&des="+item.description+"&time="+item.created_time,
 				})
 			}
 			},
@@ -131,10 +168,12 @@
 
 <style>
 	@import url("../../common/welcome/iconfont.css");
-	.content{
-		min-height: 1150rpx;
+	@import url("../../colorui/main.css");
+	@import url("../../colorui/icon.css");
+	.content1{
+		min-height: 880rpx;
 		height: 100%;
-		background-color: #F8F8F8;
+		background-color: #FFFFFF;
 		margin-top: 100rpx;
 		margin-bottom: 100rpx;
 		display: flex;
@@ -142,12 +181,12 @@
 		align-items: center;
 		/* justify-content: center; */
 	}
-	text{
+	/* text{
 		display: flex;
 		width:400rpx;
 		justify-content: center;
 		align-items: ;
-	}
+	} */
 	.cardview{
 		height: 300rpx;
 		bottom: 0;
@@ -181,6 +220,9 @@
 		align-items: center;
 		justify-content: center;
 		border-radius: 0;
+	}
+	uni-popup:after{
+		border:none;
 	}
 
 </style>

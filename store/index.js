@@ -9,6 +9,7 @@ const store = new Vuex.Store({
 		token:'',
 		userName: '', 
 		currentProject:"",
+		projectlist:[],
 	},
 	mutations:{
 		login(state, provider) {   
@@ -35,6 +36,9 @@ const store = new Vuex.Store({
 		clearProject(state){
 			state.currentProject='';
 		},
+		setlist(state,provider){
+			state.projectlist=provider.id;
+		}
 		
 	},
 	actions:{

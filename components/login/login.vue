@@ -1,28 +1,32 @@
 <template>
 		<view class="form">
+			<view style="height:50rpx;"></view>
 			<view class="grey">
 				<view style="width:50rpx;"></view>
-				<view class="iconfont icon-shouji" style="width: 10%;font-size: 45rpx;"></view>
+				<view class="iconfont icon-shouji" style="width: 10%;font-size: 40rpx;color:#999999;"></view>
 				<view style="width:15rpx;"></view>
-				<view style="width:5%;color:#000000;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
+				<view style="width:5%;color:#999999;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
 				<view style="width:15rpx;"></view>
-				<view><input type="text" @input="onInputName" placeholder="请输入用户名" placeholder-style="color:#000000;"/></view>
+				<view><input type="text" @input="onInputName" placeholder="请输入用户名" placeholder-style="color:#999999;font-size:30rpx;"/></view>
 			</view>
+			<view style="height:30rpx;"></view>
 			<view class="grey">
 				<view style="width:50rpx;"></view>
-				<view class="iconfont icon-mima" style="width: 10%;font-size: 45rpx;"></view>
+				<view class="iconfont icon-mima" style="width: 10%;font-size: 40rpx;color:#999999;"></view>
 				<view style="width:15rpx;"></view>
-				<view style="width:5%;color:#000000;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
+				<view style="width:5%;color:#999999;font-size:40rpx;display: flex;align-items: center;justify-content: center;">|</view>
 				<view style="width:15rpx;"></view>
 				<view>
-					<input type="text" @input="onInputPwd" placeholder="请输入密码" placeholder-style="color:#000000;" />
+					<input type="text" @input="onInputPwd" placeholder="请输入密码" placeholder-style="color:#999999;font-size:30rpx;" />
 				</view>
 			</view>
+			<view style="height:50rpx;"></view>
 			<view class="tip" >
-				<text @click="toOffLine()">点击此处进入游客模式，支持离线识别。</text>
+				<text @click="toOffLine()">点击此处进入游客模式体验服务。</text>
 			</view>
+			<view style="height:50rpx;"></view>
 			<view class="btn">
-				<button class="login" @click="SendtoPage()">登录</button>
+				<button class="bg-gradual-blue padding radius text-center shadow-blur" style="border-radius: 100rpx;" @click="SendtoPage()">登录</button>
 			</view>
 		</view>
 </template>
@@ -72,11 +76,13 @@
 
 <style>
 	@import url("../../common/login/iconfont.css");
+	@import url("../../colorui/main.css");
+	@import url("../../colorui/icon.css");
 	.grey{
-		height: 120rpx;
+		height: 90rpx;
 		width:500rpx;
 		border-radius: 100rpx;
-		background-color: #F8F8F8;
+		border:1px solid #F8F8F8;
 		display:flex;
 		align-items: center;
 		justify-content: center;
@@ -85,7 +91,6 @@
 		width:60%;	
 	}
 	.form{
-		height:44%;
 		display:flex;
 		flex-direction: column;
 		justify-content: space-around;
@@ -96,7 +101,7 @@
 		display:flex;
 		align-items: center;
 		justify-content: center;
-		color:#999999;
+		color:#CCCCCC;
 		font-size:30rpx;
 	}
 	.btn{
@@ -107,13 +112,15 @@
 	}
 	button{
 		color:#FFFFFF;
-		background-color: #000000;
-		height: 105rpx;
+		height: 80rpx;
 		width:500rpx;
 		font-size:35rpx;
 		border-radius: 100rpx;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	}
+	button:after{
+		border:none;
 	}
 </style>

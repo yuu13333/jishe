@@ -5,7 +5,7 @@
 		<view style="width:100%;display: flex;flex-direction: column;align-items: center;justify-content: center;">
 		<view class="imageNum">
 			<view style="color: #000000;font-size: 70rpx;font-weight: 500;">
-				{{imgNum}}
+				{{photoNumber}}
 			</view>
 			<view style="height:5rpx;"></view>
 			<view style="color:#000000;font-size: 30rpx;font-weight: 500;">
@@ -21,7 +21,7 @@
 		<view style="width:100%;display: flex;flex-direction: column;align-items: center;justify-content: center;">
 		<view class="categories">
 			<view style="color: #000000;font-size: 70rpx;font-weight: 500;">
-				{{typeNum}}
+				{{classNumber}}
 			</view>
 			<view style="height:5rpx;"></view>
 			<view style="color:#000000;font-size: 30rpx;font-weight: 500;">
@@ -64,7 +64,7 @@
 		</button></view>
 		<view style="height: 60rpx;"></view>
 		<view class="lastTime" style="color:#A5A5A5;width:100%;display: flex;align-items: center;justify-content: center;font-size: 25rpx;">
-			最后修改时间：{{String(new Date()).slice(0,-14)}}
+			数据集创建于：{{createTime}}
 		</view>
 		</scroll-view>
 	</view>
@@ -73,6 +73,20 @@
 <script>
 	export default {
 		name:"echarts",
+		props:{
+			photoNumber:{
+				type: Number,
+				default:0,
+			},
+			classNumber:{
+				type: Number,
+				default:0,
+			},
+			createTime:{
+				type:String,
+				default:''
+			}
+		},
 		onLoad() {
 		},
 		mounted() {

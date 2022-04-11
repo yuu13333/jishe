@@ -1,11 +1,11 @@
 <template>
 	<view style="display: flex;flex-direction: column;height: 100%;width:100%;align-items: center;justify-content: center;">
-		<view @click="showShadow" class="iconfont icon-tianjiayonghu" style="position:absolute;right:30rpx;font-size: 55rpx;color:#555555"></view>
+		<view @click="showShadow" class="iconfont icon-tianjiayonghu" style="position:absolute;right:30rpx;font-size: 55rpx;"></view>
 		<view class="dropdown">
 			<view :class="showIf ? 'dropdown-mask' : 'undropdown-mask'" @click="hideShadow"></view>
 			<!-- <view class="ul" :style="showIf?'height:'+list.length*30+'px':''"> --> 
 			<view class="ul" :style="'--i:'+list.length" :class="showIf?'show':''">  <!-- 不支持就用上面那种 -->
-				<view class="li" v-for="(item, index) in list" :key="index" @click="handlerItem(index)">{{ item }}</view>
+				<view class="li" v-for="(item, index) in list" :key="index" @click="handlerItem(index)"><text class="cuIcon-title text-blue"></text><view style="width:10rpx;"></view>{{ item }}</view>
 			</view>
 		</view>
 	</view>
@@ -46,6 +46,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+	@import url("../../colorui/main.css");
+	@import url("../../colorui/icon.css");
 .dropWrap {
 	box-sizing: border-box;
 	width: 96px;
@@ -90,7 +92,7 @@ export default {
 			border-bottom: 1px solid #e6eaeb;
 			font-size: 30rpx;
 			line-height: 30px;              //与下面的高度保持一致
-			padding-left: 8px;
+			padding-left: 2px;
 			color:#555555;
 			display: flex;
 			justify-content: center;

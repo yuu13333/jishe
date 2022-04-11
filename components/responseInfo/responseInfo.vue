@@ -4,14 +4,14 @@
 		<view :style="{ height: screenHeight + 'px' }"></view>
 		<view class="positionRelative" :style="{ transform: getTransform }">
 		<view v-for="(item,index) in visibleData" :key="index">
-			<uni-card style="height: 320rpx;" title="项目名称" extra="额外信息">
+			<uni-card style="height: 320rpx;" :title="'ID:'+item.id" extra="修改">
 				<view class="cardview">
-				<image mode="aspectFill" @click="preview(index)" style="width:150rpx;height: 150rpx;" :src="item.url"></image>
+				<image mode="aspectFill" @click="preview(index)" style="width:150rpx;height: 150rpx;" :src="item.photo"></image>
 				<view style="width:50rpx"></view>
 			    <view style="display: flex;flex-direction:column;justify-content: space-around;align-items: flex-start;width:60%;">
-			    <view>- 垃圾种类：{{item.title}}</view>
-			    <view>- 分属于：{{item.description}}</view>
-			    <view>- 创建于：<br/> <text style="font-size: 25rpx;">{{String(item.createTime).slice(0,-14)}}</text></view>
+			    <view>- 垃圾种类：{{item.label}}</view>
+			    <view>- 分属于：{{item.sub_label}}</view>
+			    <view>- 创建于：<br/> <text style="font-size: 25rpx;">{{item.created_time.slice(0,19)}}..</text></view>
 			    </view>
 				</view>
 			</uni-card>
@@ -29,7 +29,12 @@
 		props:{
 			listData:{
 			    type: Array,
-			    default: () => []},
+			    default: () => []
+			},
+			cards:{
+			    type: Array,
+			    default: () => []
+			},
 		},
 		mounted() {
 			this.sickAllData=this.cards;
@@ -56,12 +61,6 @@
 		data() {
 			return {
 				//当数量比较多时会出现白屏现象
-				cards:new Array(1).fill({
-						title:"有害垃圾",
-						description:"酒精",
-						url:"../../static/background.jpg",
-						createTime:new Date(),
-					}),
 				scrollTData:0,
 				startOffset: 0,
 				start: 0,

@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<view class="center">
+		<view class="center" :animation="animationData">
 			<view class="icons">
 				<view class="iconfont icon-instagramxiangji"></view>
 				<view class="iconfont icon-wrong-b"></view>
@@ -11,7 +11,7 @@
 			</view>
 			<view class="btn">
 				<button class="goBtn" @click="navto()">
-					Go
+					<text :animation="animationData1">Go</text>
 				</button>
 			</view>
 		</view>
@@ -22,10 +22,39 @@
 	export default {
 		data() {
 			return {
+				animationData: {},
+				animationData1:{}
 			}
 		},
 		onLoad() {
-			
+			var animation = uni.createAnimation({
+			　　　　duration: 800,
+			　　　　timingFunction: 'ease',
+			　　})
+			 
+			　　// 这里就完成第一组动画
+			　　this.animation = animation
+			　　animation.translateY(40).step()
+			　　this.animationData = animation.export()
+			 
+			　　// 这里是接在第一组动画后面的
+			　　setTimeout(function() {
+					var animation1 = uni.createAnimation({
+					　　　　duration: 3000,
+					　　　　timingFunction: 'ease',
+					　　})
+					this.animation = animation1
+					animation1.scale(1.2).step({
+						duration:1000
+					})
+					animation1.scale(0.8).step({
+						duration:1000
+					})
+					animation1.scale(1).step({
+						duration:1000
+					})
+					this.animationData1=animation1.export()
+			　　}.bind(this), 800)
 
 		},
 		methods: {
@@ -41,6 +70,7 @@
 	@import url("../../common/index/iconfont.css");
 	.content {
 		background-image: url("../../static/background.jpg");
+		background-size: cover;
 		width:100%;
 		height: 100vh;
 		display: flex;
@@ -61,6 +91,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		transform: translateY(-40);
 	}
 	.text{
 		color:#FFFFFF;

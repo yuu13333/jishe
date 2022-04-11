@@ -11,7 +11,7 @@
 			<view style="width:2rpx"></view>
 		</view>
 		<view style="position:fixed;top:100rpx;height: 83%;width:100%;">
-			<responseInfo></responseInfo>
+			<responseInfo :cards="cards"></responseInfo>
 		</view>
 		<view class="footer" style="background-color: #FFFFFF;width: 100%;">
 		<view style="width:10%;"></view>
@@ -29,10 +29,12 @@
 <script>
 	import helper from '../../common/common/common.js'
 	export default {
-		onLoad(){
+		onLoad(val){
 			helper.clearial();
 			helper.cleariwl();
 			this.islog=this.$store.state.islog;
+			this.ids=val.ids.split(',');
+			this.requestinfo();
 		},
 		onBackPress(options) {	
 			uni.showModal({
@@ -54,9 +56,43 @@
 			return {
 				imgNum:6,
 				islog:true,
+				cards:[],
+				ids:[],
 			}
 		},
 		methods: {
+			async requestinfo(){
+				let arr=[];
+				for(let i=0;i<this.ids.length;i++){
+					try{
+						const r = await this.request({
+							url: 'http://8.130.100.210:80/photo',
+							method:"GET",
+							data: {
+								photo_id:this.ids[i]
+							},
+						})
+						// console.log(r.slice(1,10));
+						if(r.code===200){
+							// console.log(r);
+							let obj={
+								id:this.ids[i],
+								photo:r.photo,
+								label:r.label,
+								sub_label:r.sub_label,
+								created_time:r.created_time
+							}
+							arr.push(obj);
+							console.log(arr);
+							if(i===this.ids.length-1){
+								this.cards=arr;
+							}
+						}
+					}catch(e){
+						console.log(e);
+					}
+				}
+			},
 			toHomePage(){
 				this.$store.commit("clearProject");
 				uni.navigateTo({
