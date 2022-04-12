@@ -113,7 +113,7 @@
 				<uni-popup ref="indentifyPop" type="dialog">
 				<view style="overflow:hidden;width:580rpx;height: 400rpx;background-color: #FFFFFF;border-radius: 20rpx;text-align: center;line-height: 100rpx;display:flex;flex-direction: column; justify-content: space-between;align-items: center;">
 				<view style="width:100%;border-bottom:1rpx solid #C0C0C0;">智能识别结果</view>
-				<view style="width:90%;flex:1 1 auto; line-height:1.8;font-size:35rpx;display: flex;align-items: center;text-align: left;">为您识别当前图像所属类型为"{{type}}"，是否添加为标签?</view>
+				<view style="width:90%;flex:1 1 auto; line-height:1.8;font-size:35rpx;display: flex;align-items: center;text-align: left;">为您识别当前图像所属类型为"{{type}}"的"{{son}}"，是否添加为标签?</view>
 				<view style="display: flex;width:100%;justify-content: space-between;"><button style="width:50%;border-radius:0;border:none; background-color:#007AFF;color:#FFFFFF;" @click="rejectLabel()">取消</button><button style="width:50%;border:none;border-radius:0;background-color: #FFFFFF;color:#007AFF" @click="LabelConfirm()">确认</button></view>
 				</view>
 				</uni-popup>
@@ -156,6 +156,7 @@
 				imglabels:null,
 				imgurl:"",
 				type:"有害垃圾",
+				son:"塑料瓶",
 				index:0,
 				xdistance:0,
 				transStyle:'',
@@ -294,9 +295,10 @@
 			},
 			LabelConfirm(){
 				helper.addiwl(this.imgurls[this.index],this.type);
-				this.imglabels=helper.getiwl();
+				helper.addiwlson(this.imgurls[this.index],this.son);
+				this.imglabels=helper.getiwl(); 
 				this.indexLabel[this.index]=this.imglabels.get(this.imgurls[this.index])[0];
-				this.indexSonLabel[this.index]=this.imglabels.get(this.imgurls[this.index])[1];
+				this.indexSonLabel[this.index]=this.imglabels.get(this.imgurls[this.index]).slice(1);
 				this.$forceUpdate();
 				console.log(this.indexLabel[this.index]);
 				this.$refs.indentifyPop.close();

@@ -30,9 +30,16 @@
 	import helper from '../../common/common/common.js'
 	export default {
 		onLoad(val){
+			console.log(val);
 			if(val.type==="identify"){
 				//说明是classification来的
-				this.requestoutcome();
+				let oj={label:"有害垃圾",sublabel:"电池"};
+				let jo = {label:"厨余垃圾",sublabel:"果皮"};
+				if(val.way=="camera"){
+					this.requestoutcome(oj);
+				}
+				else
+				{this.requestoutcome(jo);}
 				this.text="识别结果 ";
 			}
 			else{
@@ -70,15 +77,15 @@
 			}
 		},
 		methods: {
-			requestoutcome(){
+			requestoutcome(val){
 				let imgarr = helper.getial();
 				let arr=[];
 				for(let i=0;i<imgarr.length;i++){
 				let obj={
 						id:i,
 						photo:imgarr[i],
-						label:"有害垃圾",
-						sub_label:"雨伞",
+						label:val.label,
+						sub_label:val.sublabel,
 						created_time:String(new Date()),
 					}
 					arr.push(obj);

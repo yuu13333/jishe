@@ -34,7 +34,7 @@
 			if(val.type==="identify"){
 				console.log("identify");
 				uni.navigateTo({
-					url:"../Requestinfo/Requestinfo?type=identify" 
+					url:"../Requestinfo/Requestinfo?type=identify&way="+val.way 
 				});
 			}
 			else{

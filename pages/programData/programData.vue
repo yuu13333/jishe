@@ -22,7 +22,6 @@
 			//通过id请求得到项目的一些信息
 			this.currentProject=this.$store.state.currentProject;
 			this.getCollectionInfo();
-			this.getCollectionImg("其他垃圾");
 		},
 		onShow() {
 			
@@ -46,6 +45,9 @@
 		methods: {
 			tomanage(){
 				this.ismanage=!this.ismanage;
+				if(this.ismanage){
+					this.getCollectionImg("其他垃圾");
+				}
 			},
 			async getCollectionImg(val){
 				try{
@@ -61,6 +63,7 @@
 					})
 					console.log(re.slice(1,200));
 					if(re.code===200){
+						console.log("*");
 						console.log(re.photo_list);
 					}
 					else{

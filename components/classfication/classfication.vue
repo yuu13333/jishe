@@ -145,7 +145,7 @@
 								// })
 								//直接请求得到结果
 								uni.navigateTo({
-									url:"../loading/loading?type=identify"											
+									url:"../loading/loading?type=identify&way=camera"											
 								})
 							  })
 							  .catch(error => {
@@ -172,7 +172,7 @@
 										let items = JSON.stringify(base64s);
 										if(count == res.tempFilePaths.length){
 											uni.navigateTo({
-												url:"../loading/loading?type=identify"											
+												url:"../loading/loading?type=identify&way=album"											
 											})
 											// uni.navigateTo({
 											// 	url:"../../pages/addLabel/addLabel?iscamera=false&base64="+items})
