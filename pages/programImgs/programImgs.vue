@@ -9,14 +9,17 @@
 		data() {
 			return {
 				cards:[],
+				imgs:[],
+				list:[],
 			}
 		},
-		onLoad() {
-			
+		onLoad(val) {
+			const item = JSON.parse(decodeURIComponent(val.info));
+			this.cards = item;
 		},
 		onShow() {
 		//做请求	
-		this.requestCards()
+		// this.requestCards()
 		},
 		methods: {
 			async requestCards(){
@@ -29,10 +32,12 @@
 							image_code:1,
 						},
 					})
-					console.log(r);
+					// console.log(r);
 					// console.log(r.slice(1,100));
 					if(r.code===200){
 						console.log(r);
+						// this.imgs = r.image;
+						// console.log("!"+this.imgs);
 					}
 					else{
 						uni.showToast({

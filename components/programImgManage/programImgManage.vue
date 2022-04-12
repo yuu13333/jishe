@@ -8,20 +8,20 @@
 				<view class="imgArea">
 					<view class="imgRow">
 						<view class="imgCol">
-							<image src="../../static/mock/1.jpg"></image>
+							<image :src="typeone[0]?typeone[0].photo:'../../static/noimg.png'"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image src="../../static/mock/2.jpg"></image>
+							<image :src="typeone[1]?typeone[1].photo:'../../static/noimg.png'"></image>
 						</view>
 					</view>
 					<view class="imgRow">
 						<view class="imgCol">
-							<image src="../../static/mock/3.jpg"></image>
+							<image :src="typeone[2]?typeone[2].photo:'../../static/noimg.png'"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image src="../../static/mock/4.jpg"></image>
+							<image :src="typeone[3]?typeone[3].photo:'../../static/noimg.png'"></image>
 						</view>
 					</view>
 				</view>
@@ -35,20 +35,20 @@
 				<view class="imgArea">
 					<view class="imgRow">
 						<view class="imgCol">
-							<image src="../../static/mock/4.jpg"></image>
+							<image :src="typetwo[0]?typetwo[0].photo:'../../static/noimg.png'"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image src="../../static/mock/5.jpg"></image>
+							<image :src="typetwo[1]?typetwo[1].photo:'../../static/noimg.png'"></image>
 						</view>
 					</view>
 					<view class="imgRow">
 						<view class="imgCol">
-							<image src="../../static/mock/1.jpg"></image>
+							<image :src="typetwo[2]?typetwo[2].photo:'../../static/noimg.png'"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image src="../../static/mock/8.jpg"></image>
+							<image :src="typetwo[3]?typetwo[3].photo:'../../static/noimg.png'"></image>
 						</view>
 					</view>
 				</view>
@@ -65,20 +65,20 @@
 				<view class="imgArea">
 					<view class="imgRow">
 						<view class="imgCol">
-							<image src="../../static/mock/6.jpg"></image>
+							<image :src="typefour[0]?typefour[0].photo:'../../static/noimg.png'"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image src="../../static/mock/8.jpg"></image>
+							<image :src="typefour[1]?typefour[1].photo:'../../static/noimg.png'"></image>
 						</view>
 					</view>
 					<view class="imgRow">
 						<view class="imgCol">
-							<image src="../../static/mock/7.jpg"></image>
+							<image :src="typefour[2]?typefour[2].photo:'../../static/noimg.png'"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image src="../../static/mock/5.jpg"></image>
+							<image :src="typefour[3]?typefour[3].photo:'../../static/noimg.png'"></image>
 						</view>
 					</view>
 				</view>
@@ -92,20 +92,20 @@
 				<view class="imgArea">
 					<view class="imgRow">
 						<view class="imgCol">
-							<image src="../../static/mock/2.jpg"></image>
+							<image :src="typethree[0]?typethree[0].photo:'../../static/noimg.png'"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image src="../../static/mock/5.jpg"></image>
+							<image :src="typethree[1]?typethree[1].photo:'../../static/noimg.png'"></image>
 						</view>
 					</view>
 					<view class="imgRow">
 						<view class="imgCol">
-							<image src="../../static/mock/4.jpg"></image>
+							<image :src="typethree[2]?typethree[2].photo:'../../static/noimg.png'"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image src="../../static/mock/3.jpg"></image>
+							<image :src="typethree[3]?typethree[3].photo:'../../static/noimg.png'"></image>
 						</view>
 					</view>
 				</view>
@@ -120,8 +120,33 @@
 </template>
 
 <script>
+	let obj={
+		photo:"../../static/noimg.png",
+	};
 	export default {
 		name:"programImgManage",
+		props:{
+			typeone:{
+				type:Array,
+				default:()=>{return new Array(4).fill(obj)},
+			},
+			typetwo:{
+				type:Array,
+				default:()=>{return new Array(4).fill(obj)},
+			},
+			typethree:{
+				type:Array,
+				default:()=>{return new Array(4).fill(obj);},
+			},
+			typefour:{
+				type:Array,
+				default:()=>{return new Array(4).fill(obj);},
+			},
+			isnew:{
+				type:Boolean,
+				default:true
+			}
+		},
 		data() {
 			return {
 				
@@ -130,25 +155,26 @@
 		methods:{
 			//添加不同的参数 目前省略 交互时需要添加
 			other(){
+				// console.log(this.typeone[0].photo.slice(0,100));
 				uni.navigateTo({
-					url:'../../pages/programImgs/programImgs'
+					url:`../../pages/programImgs/programImgs?info=${encodeURIComponent(JSON.stringify(this.typeone))}`
 				})
 			},
 			kitchen(){
 				uni.navigateTo({
-					url:'../../pages/programImgs/programImgs'
+					url:`../../pages/programImgs/programImgs?info=${encodeURIComponent(JSON.stringify(this.typetwo))}`
 				})
 				
 			},
 			recycle(){
 				uni.navigateTo({
-					url:'../../pages/programImgs/programImgs'
+					url:`../../pages/programImgs/programImgs?info=${encodeURIComponent(JSON.stringify(this.typefour))}`
 				})
 				
 			},
 			hazardous(){
 				uni.navigateTo({
-					url:'../../pages/programImgs/programImgs'
+					url:`../../pages/programImgs/programImgs?info=${encodeURIComponent(JSON.stringify(this.typethree))}`
 				})
 				
 			}

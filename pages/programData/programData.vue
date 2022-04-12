@@ -9,7 +9,7 @@
 		<view class="info">
 			<echarts v-if="!ismanage" :classDetailsadd="classDetails1" :classDetails="classDetails" :photoNumber="photoNumber" :classNumber="classNumber" :createTime="projectTime"></echarts>
 			<uni-transition style="width:100%;width:100%;" mode-class="fade" :duration="100" :show="ismanage">
-				<programImgManage style="width:100%;width:100%;"></programImgManage>
+				<programImgManage style="width:100%;width:100%;" :typeone="typeone" :typetwo="typetwo" :typethree="typethree" :typefour="typefour" :isnew="isnew"></programImgManage>
 			</uni-transition>
 		</view>
 	</view>
@@ -29,6 +29,11 @@
 		data() {
 			return {
 				avatar:"",
+				typeone:[],
+				typetwo:[],
+				typethree:[],
+				typefour:[],
+				isnew:true,
 				classDetails:{},
 				classDetails1:{},
 				currentProject:'',
@@ -52,6 +57,10 @@
 			async getCollectionImg(val){
 				try{
 					console.log("collectionImg");
+					console.log("token:"+this.$store.state.token);
+					console.log("collection_id"+this.$store.state.currentProject);
+					console.log("label_name:"+"其他垃圾");
+					
 					const re = await this.request({
 						url: 'http://8.130.100.210:80/label',
 						method:"GET",
@@ -61,10 +70,90 @@
 							label_name:"其他垃圾",
 						 },
 					})
-					console.log(re.slice(1,200));
-					if(re.code===200){
+					const re2 = await this.request({
+						url: 'http://8.130.100.210:80/label',
+						method:"GET",
+						data: {
+							token:this.$store.state.token,
+							collection_id:this.$store.state.currentProject,
+							label_name:"厨余垃圾",
+						 },
+					})
+					const re3 = await this.request({
+						url: 'http://8.130.100.210:80/label',
+						method:"GET",
+						data: {
+							token:this.$store.state.token,
+							collection_id:this.$store.state.currentProject,
+							label_name:"有害垃圾",
+						 },
+					})
+					const re4 = await this.request({
+						url: 'http://8.130.100.210:80/label',
+						method:"GET",
+						data: {
+							token:this.$store.state.token,
+							collection_id:this.$store.state.currentProject,
+							label_name:"可回收垃圾",
+						 },
+					})
+					if(re.code===200&&re2.code===200&&re3.code===200&&re4.code){
 						console.log("*");
-						console.log(re.photo_list);
+						console.log(Object.keys(re.photo_list[0]));
+						// console.log(re.photo_list.length);
+						for(let i=0;i<re.photo_list.length;i++){
+							let obj={
+								id:i,
+								label:"其他垃圾",
+								photo:"",
+								sub_label:"",
+								created_time:""
+							};
+							obj.photo=re.photo_list[i].image;
+							obj.sub_label=re.photo_list[i].sub_label;
+							obj.created_time=re.photo_list[i].created_time;
+							this.typeone.push(obj);
+						}
+						for(let i=0;i<re2.photo_list.length;i++){
+							let obj={
+								id:i,
+								label:"厨余垃圾",
+								photo:"",
+								sub_label:"",
+								created_time:""
+							};
+							obj.photo=re2.photo_list[i].image;
+							obj.sub_label=re2.photo_list[i].sub_label;
+							obj.created_time=re2.photo_list[i].created_time;
+							this.typetwo.push(obj);
+						}
+						for(let i=0;i<re3.photo_list.length;i++){
+							let obj={
+								id:i,
+								label:"厨余垃圾",
+								photo:"",
+								sub_label:"",
+								created_time:""
+							};
+							obj.photo=re3.photo_list[i].image;
+							obj.sub_label=re3.photo_list[i].sub_label;
+							obj.created_time=re3.photo_list[i].created_time;
+							this.typethree.push(obj);
+						}
+						for(let i=0;i<re4.photo_list.length;i++){
+							let obj={
+								id:i,
+								label:"厨余垃圾",
+								photo:"",
+								sub_label:"",
+								created_time:""
+							};
+							obj.photo=re4.photo_list[i].image;
+							obj.sub_label=re4.photo_list[i].sub_label;
+							obj.created_time=re4.photo_list[i].created_time;
+							this.typefour.push(obj);
+						}
+						this.isnew = this.isnew;
 					}
 					else{
 						uni.showToast({
