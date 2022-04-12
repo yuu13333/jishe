@@ -2,18 +2,21 @@
 	<view class="content">
 		<view class="center" :animation="animationData">
 			<view class="icons">
-				<view class="iconfont icon-instagramxiangji"></view>
+				<!-- <view class="iconfont icon-instagramxiangji"></view>
 				<view class="iconfont icon-wrong-b"></view>
-				<view class="iconfont icon-xiangmu" style="font-size: 85rpx;"></view>
+				<view class="iconfont icon-xiangmu" style="font-size: 85rpx;"></view> -->
+				<image src="../../static/dtrash.png" mode="heightFix"></image>
 			</view>
 			<view class="text">
-				您的私人数据集管家
+				智能垃圾分类与标注平台
 			</view>
+			<view style="height:40rpx;"></view>
 			<view class="btn">
 				<button class="goBtn" @click="navto()">
 					<text :animation="animationData1">Go</text>
 				</button>
 			</view>
+			<view style="height:200rpx;"></view>
 		</view>
 	</view>
 </template>
@@ -86,11 +89,11 @@
 	}
 
 	.center{
-		width:40%;
-		height:28%;
+		width:100%;
+		height:100%;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+		justify-content: center;
 		transform: translateY(-40);
 	}
 	.text{
@@ -104,7 +107,7 @@
 		width:120rpx;
 		height: 120rpx;
 		border-radius: 100rpx;
-		background-color: #DD524D;
+		background-color: #009900;
 		display: flex;
 		align-items: center;
 		justify-content: center;
