@@ -36,28 +36,24 @@
 		<view style="height: 40rpx;"></view>
 		<view class="ucharts">
 			<view class="charts-box">
-			  <qiun-data-charts type="column" :chartData="chartData" />
+			  <qiun-data-charts type="column" :chartData="classDetails" />
 			</view>
 			<view style="height:30rpx;"></view>
 			<view class="charts-box">
-			  <qiun-data-charts type="pie" :chartData="chartData1" />
+			  <qiun-data-charts type="pie" :chartData="classDetailsadd" />
 			</view>
-			<!-- <view id="echarts" :prop="option" :change:prop="echarts.updateEcharts" style="width:100%;height:300rpx">
+<!-- 			<view id="echarts" :prop="option" :change:prop="echarts.updateEcharts" style="width:100%;height:300rpx">
 				
 			</view> -->
 			
-			<view class="con">
-				<!-- #ifdef APP-PLUS || H5 -->
+			<!-- <view class="con">
 				<view @click="echarts.onClick" :prop="option" :change:prop="echarts.updateEcharts" id="echarts" class="echarts"></view>
 				<button @click="changeOption">更新数据</button>
-				<!-- #endif -->
 			</view>
 			<view class="con">
-				<!-- #ifdef APP-PLUS || H5 -->
 				<view @click1="echarts.onClick" :prop="option1" :change:prop="echarts.updateEcharts1" id="echarts1" class="echarts"></view>
 				<button @click="changeOption1">更新数据</button>
-				<!-- #endif -->
-			</view>
+			</view> -->
 		</view>
 		<view style="height: 50rpx;"></view>
 		<view style="width:100%;"><button @click="test()" type="default" style="width:80%;height:100rpx;background-color: #007AFF;color:#FFFFFF">Start Labeling
@@ -85,52 +81,32 @@
 			createTime:{
 				type:String,
 				default:''
+			},
+			classDetails:{
+				type:Object,
+				default:()=>{null},
+			},
+			classDetailsadd:{
+				type:Object,
+				default:()=>{null},
 			}
 		},
 		onLoad() {
 		},
 		mounted() {
-			
+			console.log(this.classDetails);
+			console.log(this.classDetailsadd);
 		},
+		// beforeUpdate(){
+		// 	console.log(this.classDetails)
+		// },
+		// updated(){
+		// 	console.log(this.classDetails)
+		// },
 		data() {
 			return {
 				imgNum:100,
 				typeNum:26,
-				chartData:{
-		  	    categories:['其他垃圾','有害垃圾','厨余垃圾','可回收垃圾'],
-					series:[
-					    {
-					      name:'导入值',
-					      data:[35,33, 13, 34]
-					    },
-					    {
-					      name:'预测值',
-					      data:[18,24, 6, 28]
-					    }
-					  ]
-					},
-				chartData1:{
-					  series: [{
-					    data: [
-					      {
-					        name: "一类",
-					        value: 50
-					      }, {
-					        name: "二类",
-					        value: 30
-					      }, {
-					        name: "三类",
-					        value: 20
-					      }, {
-					        name: "四类",
-					        value: 18
-					      }, {
-					        name: "五类",
-					        value: 8
-					      }
-					    ]
-					  }]
-				},
 				option:{
 				            title: {
 				                text: ' 类型统计'
@@ -179,74 +155,74 @@
 			};
 		},
 		methods:{
-			changeOption() {
-				const data = this.option.series[0].data
-				// 随机更新示例数据
-				data.forEach((item, index) => {
-					data.splice(index, 1, Math.random() * 40)
-				})
-			},
-			changeOption1() {
-				const data = this.option1.series[0].data
-				// 随机更新示例数据
-				data.forEach((item, index) => {
-					data.splice(index, 1, {value:Math.random() * 40,name:item.name})
-				})
-			},
-			onViewClick(options) {
-				console.log(options)
-			}
+			// changeOption() {
+			// 	const data = this.option.series[0].data
+			// 	// 随机更新示例数据
+			// 	data.forEach((item, index) => {
+			// 		data.splice(index, 1, Math.random() * 40)
+			// 	})
+			// },
+			// changeOption1() {
+			// 	const data = this.option1.series[0].data
+			// 	// 随机更新示例数据
+			// 	data.forEach((item, index) => {
+			// 		data.splice(index, 1, {value:Math.random() * 40,name:item.name})
+			// 	})
+			// },
+			// onViewClick(options) {
+			// 	console.log(options)
+			// }
 		}
 	}
 </script>
 
-<script module="echarts" lang="renderjs">
-	let myChart
-	let myChart1
-	export default {
-		mounted() {
-			if (typeof window.echarts === 'function') {
-				this.initEcharts()
-			} else {
-				// 动态引入较大类库避免影响页面展示
-				const script = document.createElement('script')
-				// view 层的页面运行在 www 根目录，其相对路径相对于 www 计算
-				script.src = 'static/echarts.js'
-				script.onload = this.initEcharts.bind(this)
-				document.head.appendChild(script)
-			}
-		},
-		methods: {
-			initEcharts() {
-				myChart = echarts.init(document.getElementById('echarts'))
-				myChart1 = echarts.init(document.getElementById('echarts1'))
-				// 观测更新的数据在 view 层可以直接访问到
-				myChart.setOption(this.option)
-				myChart1.setOption(this.option1)
-			},
-			updateEcharts(newValue, oldValue, ownerInstance, instance) {
-				// 监听 service 层数据变更
-				myChart.setOption(newValue)
-			},
-			onClick(event, ownerInstance) {
-				// 调用 service 层的方法
-				ownerInstance.callMethod('onViewClick', {
-					test: 'test'
-				})
-			},
-			updateEcharts1(newValue, oldValue, ownerInstance, instance) {
-				// 监听 service 层数据变更
-				myChart1.setOption(newValue)
-			},
-			onClick1(event, ownerInstance) {
-				// 调用 service 层的方法
-				ownerInstance.callMethod('onViewClick', {
-					test: 'test'
-				})
-			}
-		}
-	}
-</script>
+// <script module="echarts" lang="renderjs">
+// 	let myChart
+// 	let myChart1
+// 	export default {
+// 		mounted() {
+// 			if (typeof window.echarts === 'function') {
+// 				this.initEcharts()
+// 			} else {
+// 				// 动态引入较大类库避免影响页面展示
+// 				const script = document.createElement('script')
+// 				// view 层的页面运行在 www 根目录，其相对路径相对于 www 计算
+// 				script.src = 'static/echarts.js'
+// 				script.onload = this.initEcharts.bind(this)
+// 				document.head.appendChild(script)
+// 			}
+// 		},
+// 		methods: {
+// 			initEcharts() {
+// 				myChart = echarts.init(document.getElementById('echarts'))
+// 				myChart1 = echarts.init(document.getElementById('echarts1'))
+// 				// 观测更新的数据在 view 层可以直接访问到
+// 				myChart.setOption(this.option)
+// 				myChart1.setOption(this.option1)
+// 			},
+// 			updateEcharts(newValue, oldValue, ownerInstance, instance) {
+// 				// 监听 service 层数据变更
+// 				myChart.setOption(newValue)
+// 			},
+// 			onClick(event, ownerInstance) {
+// 				// 调用 service 层的方法
+// 				ownerInstance.callMethod('onViewClick', {
+// 					test: 'test'
+// 				})
+// 			},
+// 			updateEcharts1(newValue, oldValue, ownerInstance, instance) {
+// 				// 监听 service 层数据变更
+// 				myChart1.setOption(newValue)
+// 			},
+// 			onClick1(event, ownerInstance) {
+// 				// 调用 service 层的方法
+// 				ownerInstance.callMethod('onViewClick', {
+// 					test: 'test'
+// 				})
+// 			}
+// 		}
+// 	}
+// </script>
 
 
 <style>

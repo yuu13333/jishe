@@ -4,7 +4,7 @@
 		<view :style="{ height: screenHeight + 'px' }"></view>
 		<view class="positionRelative" :style="{ transform: getTransform }">
 		<view v-for="(item,index) in visibleData" :key="index">
-			<uni-card style="height: 320rpx;" :title="'ID:'+item.id" extra="修改">
+			<uni-card style="height: 320rpx;" :title="'ID:'+item.id" extra="">
 				<view class="cardview">
 				<image mode="aspectFill" @click="preview(index)" style="width:150rpx;height: 150rpx;" :src="item.photo"></image>
 				<view style="width:50rpx"></view>

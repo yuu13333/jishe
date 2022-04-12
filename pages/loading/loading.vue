@@ -31,9 +31,17 @@
 	onLoad(val) {
 		console.log(val);
 		setTimeout(()=>{
-			uni.navigateTo({
-				url:"../Requestinfo/Requestinfo?ids="+val.ids
-			})
+			if(val.type==="identify"){
+				console.log("identify");
+				uni.navigateTo({
+					url:"../Requestinfo/Requestinfo?type=identify" 
+				});
+			}
+			else{
+				uni.navigateTo({
+					url:"../Requestinfo/Requestinfo?ids="+val.ids
+				})
+			}
 		},1000)
 	},
     methods: {

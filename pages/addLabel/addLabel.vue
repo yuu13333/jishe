@@ -110,6 +110,13 @@
 				<view style="display: flex;width:100%;justify-content: space-between;"><button style="width:50%;border-radius:0;border:none; background-color:#007AFF;color:#FFFFFF;" @click="closeDialog()">取消</button><button style="width:50%;border:none;border-radius:0;background-color: #FFFFFF;color:#007AFF" @click="dialogInputConfirm()">确认</button></view>
 				</view>
 				</uni-popup>
+				<uni-popup ref="indentifyPop" type="dialog">
+				<view style="overflow:hidden;width:580rpx;height: 400rpx;background-color: #FFFFFF;border-radius: 20rpx;text-align: center;line-height: 100rpx;display:flex;flex-direction: column; justify-content: space-between;align-items: center;">
+				<view style="width:100%;border-bottom:1rpx solid #C0C0C0;">智能识别结果</view>
+				<view style="width:90%;flex:1 1 auto; line-height:1.8;font-size:35rpx;display: flex;align-items: center;text-align: left;">为您识别当前图像所属类型为"{{type}}"，是否添加为标签?</view>
+				<view style="display: flex;width:100%;justify-content: space-between;"><button style="width:50%;border-radius:0;border:none; background-color:#007AFF;color:#FFFFFF;" @click="rejectLabel()">取消</button><button style="width:50%;border:none;border-radius:0;background-color: #FFFFFF;color:#007AFF" @click="LabelConfirm()">确认</button></view>
+				</view>
+				</uni-popup>
 				</view>
 			</view>
 			<view class="lastTime" style="color:#A5A5A5;width:100%;display: flex;align-items: center;justify-content: center;font-size: 25rpx;">
@@ -125,20 +132,6 @@
 	import { pathToBase64, base64ToPath } from '../../js_sdk/mmmm-image-tools/index.js'
 	export default {
 		onLoad() {
-			// if(base64.iscamera=="true"){
-			// 	//console.log(base64);
-			// 	console.log("调用相机!");
-			// 	this.imgurl = base64.base64.replace(new RegExp(" ", "gm"), "+");
-			// 	this.imgurls.push(base64.base64.replace(new RegExp(" ", "gm"), "+"));
-				
-			// }
-			// else{
-			// 	console.log("调用相册！");
-			// 	console.log(JSON.parse(base64.base64).length);
-			// 	for(const item of JSON.parse(base64.base64))
-			// 	this.imgurls.push(item.replace(new RegExp(" ", "gm"), "+"));
-			// }
-			//全局变量代替暂时存储
 			this.islog=this.$store.state.islog;
 			this.items=this.$store.state.projectlist;
 			console.log(this.currentProject);
@@ -152,8 +145,9 @@
 				this.indexSonLabel[i]=this.imglabels.get(this.imgurls[i])[1];
 				}
 			}
-			
 			this.$forceUpdate();
+			if(this.imgurls.length>=1)
+			this.requestLabel();
 		},
 		data() {
 			return {
@@ -161,6 +155,7 @@
 				imgurls:[],
 				imglabels:null,
 				imgurl:"",
+				type:"有害垃圾",
 				index:0,
 				xdistance:0,
 				transStyle:'',
@@ -189,6 +184,24 @@
 			}
 		},
 		methods: {
+			async requestLabel(){
+				if(this.indexLabel[this.index]!=undefined)
+				return;
+				else{
+					try{
+						const r = await this.request({
+								url: 'http://8.130.100.210:80/predict',
+								method:"POST",
+								data: {
+									image:this.imgurls[this.index],
+								},
+						})
+						this.$refs.indentifyPop.open();
+					}catch(e){
+						//TODO handle the exception
+					}
+				}
+			},
 			radioChange: function(evt) {
 			            for (let i = 0; i < this.items.length; i++) {
 			                if (this.items[i].value === evt.detail.value) {
@@ -276,6 +289,23 @@
 			closeDialog(){
 				this.$refs.submitPop.close();
 			},
+			rejectLabel(){
+				this.$refs.indentifyPop.close();
+			},
+			LabelConfirm(){
+				helper.addiwl(this.imgurls[this.index],this.type);
+				this.imglabels=helper.getiwl();
+				this.indexLabel[this.index]=this.imglabels.get(this.imgurls[this.index])[0];
+				this.indexSonLabel[this.index]=this.imglabels.get(this.imgurls[this.index])[1];
+				this.$forceUpdate();
+				console.log(this.indexLabel[this.index]);
+				this.$refs.indentifyPop.close();
+				uni.showToast({
+					image:'../../static/chenggong_1.png',
+					title:'添加成功!',
+					duration:800,
+				});	
+			},
 			dialogInputConfirm(){
 				uni.navigateTo({
 					url:"../Requestinfo/Requestinfo",
@@ -287,7 +317,7 @@
 					this.xdistance=String(this.index*(-750))+'rpx';
 					console.log(this.xdistance);
 					this.transStyle = 'translateX('+this.xdistance+')';
-					
+					this.requestLabel();
 				}
 			},
 			right(){
@@ -296,6 +326,7 @@
 					this.xdistance=String(this.index*(-750))+'rpx';
 					console.log(this.xdistance);
 					this.transStyle = 'translateX('+this.xdistance+')';
+					this.requestLabel();
 				}
 				
 			},

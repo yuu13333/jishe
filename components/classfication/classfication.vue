@@ -27,7 +27,6 @@
 		<view style="height:100rpx">
 			
 		</view> -->
-		
 	</view>
 </template>
 
@@ -141,8 +140,12 @@
 								// this.$store.commit("addial",o);
 								helper.addial(base64);
 								console.log("！");
+								// uni.navigateTo({
+								// 	url:"../../pages/addLabel/addLabel"+"?iscamera=true&base64="+base64
+								// })
+								//直接请求得到结果
 								uni.navigateTo({
-									url:"../../pages/addLabel/addLabel"+"?iscamera=true&base64="+base64
+									url:"../loading/loading?type=identify"											
 								})
 							  })
 							  .catch(error => {
@@ -163,17 +166,20 @@
 								pathToBase64(r)
 									  .then(base64 => {
 										base64s.push(base64);
+										//helper已经添加完毕了
 										helper.addial(base64);
-										// console.log("1");
-										// this.$store.commit("addial",{"img":base64});
 										count++;
 										let items = JSON.stringify(base64s);
 										if(count == res.tempFilePaths.length){
 											uni.navigateTo({
-												url:"../../pages/addLabel/addLabel?iscamera=false&base64="+items})
-											.catch(error => {
-											  console.error(error)
+												url:"../loading/loading?type=identify"											
 											})
+											// uni.navigateTo({
+											// 	url:"../../pages/addLabel/addLabel?iscamera=false&base64="+items})
+											// .catch(error => {
+											//   console.error(error)
+											// })
+											//直接跳转到识别页面
 										}
 								});	
 							}

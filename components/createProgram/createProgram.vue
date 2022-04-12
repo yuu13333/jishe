@@ -11,7 +11,7 @@
 			<view class="cu-item" style="width: 90%;border:1rpx solid #f8f8f8;border-radius: 30rpx;">
 				<view class="image" style="height:350rpx;overflow: hidden;">
 					<image :src="item.image?item.image:'../../static/noimg.png'" mode="widthFix" ></image>
-					<view class="cu-tag bg-blue">垃圾种类</view>
+					<view class="cu-tag bg-blue">个人</view>
 					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{item.description}}</text></view>
 				</view>
 				<view class="cu-list menu-avatar" style="border-bottom: none;">

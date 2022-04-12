@@ -3,7 +3,7 @@
 		<view class="header">
 			<view style="width:2rpx"></view>
 			<view style="display: flex;font-size:35rpx;align-items: center;justify-content: center;">
-			验证结果<view style="font-size: 25rpx;display: flex;align-items: center;justify-content: center;">({{imgNum}})</view>
+			{{text}}<view style="font-size: 25rpx;display: flex;align-items: center;justify-content: center;">({{imgNum}})</view>
 			</view>
 			<view style="width:300rpx"></view>
 			<view class="iconfont icon-shouyefill" style="font-size: 55rpx;color:#555555" @click="toHomePage()">
@@ -30,11 +30,19 @@
 	import helper from '../../common/common/common.js'
 	export default {
 		onLoad(val){
+			if(val.type==="identify"){
+				//说明是classification来的
+				this.requestoutcome();
+				this.text="识别结果 ";
+			}
+			else{
+				this.ids=val.ids.split(',');
+				this.requestinfo();
+				this.text="上传结果 ";
+			}
+			this.islog=this.$store.state.islog;
 			helper.clearial();
 			helper.cleariwl();
-			this.islog=this.$store.state.islog;
-			this.ids=val.ids.split(',');
-			this.requestinfo();
 		},
 		onBackPress(options) {	
 			uni.showModal({
@@ -54,13 +62,57 @@
 		},
 		data() {
 			return {
-				imgNum:6,
+				imgNum:0,
 				islog:true,
 				cards:[],
 				ids:[],
+				text:"",
 			}
 		},
 		methods: {
+			requestoutcome(){
+				let imgarr = helper.getial();
+				let arr=[];
+				for(let i=0;i<imgarr.length;i++){
+				let obj={
+						id:i,
+						photo:imgarr[i],
+						label:"有害垃圾",
+						sub_label:"雨伞",
+						created_time:String(new Date()),
+					}
+					arr.push(obj);
+					// console.log(arr);
+					if(i===imgarr.length-1){
+						this.cards=arr;
+					}
+					this.imgNum = imgarr.length;
+					// try{
+					// 	const r = await this.request({
+					// 		url: 'http://8.130.100.210:80/predict',
+					// 		method:"POST",
+					// 		data: {
+					// 			image:imgarr[i]
+					// 		},
+					// 	})
+					// 	if(r.code===200){
+					// 		let obj={
+					// 			id:i,
+					// 			photo:imgarr[i],
+					// 			label:r.label,
+					// 			created_time:new Date(),
+					// 		}
+					// 		arr.push(obj);
+					// 		console.log(arr);
+					// 		if(i===this.ids.length-1){
+					// 			this.cards=arr;
+					// 		}
+					// 	}
+					// }catch(e){
+					// 	console.log("predict error!");
+					// }
+				}
+			},
 			async requestinfo(){
 				let arr=[];
 				for(let i=0;i<this.ids.length;i++){
@@ -86,6 +138,7 @@
 							console.log(arr);
 							if(i===this.ids.length-1){
 								this.cards=arr;
+								this.imgNum = this.ids.length;
 							}
 						}
 					}catch(e){
