@@ -181,7 +181,7 @@
 				},
 				toImgInfo(){
 					uni.navigateTo({
-						url:"../programImgs/programImgs",
+						url:"../programImgs/programImgs?type=all",
 					})
 				}
 			
