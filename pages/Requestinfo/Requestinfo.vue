@@ -77,7 +77,7 @@
 			}
 		},
 		methods: {
-			requestoutcome(val){
+			async requestoutcome(val){
 				let imgarr = helper.getial();
 				let arr=[];
 				for(let i=0;i<imgarr.length;i++){

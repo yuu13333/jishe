@@ -8,20 +8,20 @@
 				<view class="imgArea">
 					<view class="imgRow">
 						<view class="imgCol">
-							<image :src="typeone[0]?typeone[0].photo:'../../static/noimg.png'"></image>
+							<image :src="typeone[0]?typeone[0].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image :src="typeone[1]?typeone[1].photo:'../../static/noimg.png'"></image>
+							<image :src="typeone[1]?typeone[1].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 					</view>
 					<view class="imgRow">
 						<view class="imgCol">
-							<image :src="typeone[2]?typeone[2].photo:'../../static/noimg.png'"></image>
+							<image :src="typeone[2]?typeone[2].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image :src="typeone[3]?typeone[3].photo:'../../static/noimg.png'"></image>
+							<image :src="typeone[3]?typeone[3].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 					</view>
 				</view>
@@ -35,20 +35,20 @@
 				<view class="imgArea">
 					<view class="imgRow">
 						<view class="imgCol">
-							<image :src="typetwo[0]?typetwo[0].photo:'../../static/noimg.png'"></image>
+							<image :src="typetwo[0]?typetwo[0].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image :src="typetwo[1]?typetwo[1].photo:'../../static/noimg.png'"></image>
+							<image :src="typetwo[1]?typetwo[1].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 					</view>
 					<view class="imgRow">
 						<view class="imgCol">
-							<image :src="typetwo[2]?typetwo[2].photo:'../../static/noimg.png'"></image>
+							<image :src="typetwo[2]?typetwo[2].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image :src="typetwo[3]?typetwo[3].photo:'../../static/noimg.png'"></image>
+							<image :src="typetwo[3]?typetwo[3].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 					</view>
 				</view>
@@ -65,20 +65,20 @@
 				<view class="imgArea">
 					<view class="imgRow">
 						<view class="imgCol">
-							<image :src="typefour[0]?typefour[0].photo:'../../static/noimg.png'"></image>
+							<image :src="typefour[0]?typefour[0].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image :src="typefour[1]?typefour[1].photo:'../../static/noimg.png'"></image>
+							<image :src="typefour[1]?typefour[1].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 					</view>
 					<view class="imgRow">
 						<view class="imgCol">
-							<image :src="typefour[2]?typefour[2].photo:'../../static/noimg.png'"></image>
+							<image :src="typefour[2]?typefour[2].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image :src="typefour[3]?typefour[3].photo:'../../static/noimg.png'"></image>
+							<image :src="typefour[3]?typefour[3].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 					</view>
 				</view>
@@ -92,20 +92,20 @@
 				<view class="imgArea">
 					<view class="imgRow">
 						<view class="imgCol">
-							<image :src="typethree[0]?typethree[0].photo:'../../static/noimg.png'"></image>
+							<image :src="typethree[0]?typethree[0].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image :src="typethree[1]?typethree[1].photo:'../../static/noimg.png'"></image>
+							<image :src="typethree[1]?typethree[1].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 					</view>
 					<view class="imgRow">
 						<view class="imgCol">
-							<image :src="typethree[2]?typethree[2].photo:'../../static/noimg.png'"></image>
+							<image :src="typethree[2]?typethree[2].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 						<view style="width:10rpx;"></view>
 						<view class="imgCol">
-							<image :src="typethree[3]?typethree[3].photo:'../../static/noimg.png'"></image>
+							<image :src="typethree[3]?typethree[3].photo:'../../static/NULL.png'" mode="aspectFill"></image>
 						</view>
 					</view>
 				</view>
@@ -121,7 +121,7 @@
 
 <script>
 	let obj={
-		photo:"../../static/noimg.png",
+		photo:"../../static/NULL.png",
 	};
 	export default {
 		name:"programImgManage",
@@ -136,11 +136,22 @@
 			},
 			typethree:{
 				type:Array,
-				default:()=>{return new Array(4).fill(obj);},
+				default:()=>{return [{
+					id:1,
+					photo:"../../static/mock/dianchi.jpg",
+					label:"有害垃圾",
+					sub_label:"电池",
+					created_time:String(new Date()),}];},
 			},
 			typefour:{
 				type:Array,
-				default:()=>{return new Array(4).fill(obj);},
+				default:()=>{return [{
+					id:2,
+					photo:"../../static/mock/suliaopin.png",
+					label:"可回收垃圾",
+					sub_label:"塑料瓶",
+					created_time:String(new Date()),
+				}];},
 			},
 			isnew:{
 				type:Boolean,

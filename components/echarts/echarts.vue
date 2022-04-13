@@ -5,7 +5,7 @@
 		<view style="width:100%;display: flex;flex-direction: column;align-items: center;justify-content: center;">
 		<view class="imageNum">
 			<view style="color: #000000;font-size: 70rpx;font-weight: 500;">
-				{{photoNumber}}
+				<!-- {{photoNumber}} -->126
 			</view>
 			<view style="height:5rpx;"></view>
 			<view style="color:#000000;font-size: 30rpx;font-weight: 500;">
@@ -21,7 +21,7 @@
 		<view style="width:100%;display: flex;flex-direction: column;align-items: center;justify-content: center;">
 		<view class="categories">
 			<view style="color: #000000;font-size: 70rpx;font-weight: 500;">
-				{{classNumber}}
+				<!-- {{classNumber}} -->4
 			</view>
 			<view style="height:5rpx;"></view>
 			<view style="color:#000000;font-size: 30rpx;font-weight: 500;">
@@ -72,24 +72,44 @@
 		props:{
 			photoNumber:{
 				type: Number,
-				default:0,
+				default:100,
 			},
 			classNumber:{
 				type: Number,
-				default:0,
+				default:4,
 			},
 			createTime:{
 				type:String,
-				default:''
+				default:String(new Date()),
 			},
 			classDetails:{
 				type:Object,
-				default:()=>{null},
+				default:()=>{
+					return {
+						categories:["其他垃圾","有害垃圾","厨余垃圾","可回收垃圾"],
+							series:[
+								    {
+								      name:'数量',
+								      data:[32,12,34,48],
+								    },
+							]
+					}
+				},
 			},
 			classDetailsadd:{
 				type:Object,
-				default:()=>{null},
-			}
+				default:()=>{
+					return {
+						series: [{
+							// data:[]
+						  data: [{name:'其他垃圾',value:32},
+						  {name:'厨余垃圾',value:12},
+						  {name:'有害垃圾',value:34},
+						  {name:'可回收垃圾',value:48}]
+						}]
+					};
+				},
+			},
 		},
 		onLoad() {
 		},
@@ -155,6 +175,9 @@
 			};
 		},
 		methods:{
+			test(){
+				
+			}
 			// changeOption() {
 			// 	const data = this.option.series[0].data
 			// 	// 随机更新示例数据

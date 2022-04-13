@@ -16,7 +16,24 @@
 		onLoad(val) {
 			if(val.type=="all"){
 				//查看所有的图片
-				this.requestCards();
+				// this.requestCards();
+				this.cards=[
+					{
+						id:1,
+						photo:"../../static/mock/dianchi.jpg",
+						label:"有害垃圾",
+						sub_label:"电池",
+						created_time:String(new Date()),
+					},
+					{
+						id:2,
+						photo:"../../static/mock/suliaopin.png",
+						label:"可回收垃圾",
+						sub_label:"塑料瓶",
+						created_time:String(new Date()),
+						
+					}
+				];
 			}
 			else{
 				const item = JSON.parse(decodeURIComponent(val.info));

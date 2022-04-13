@@ -1,15 +1,20 @@
 <template>
 	<view class="content">
 		<view class="header" :class="ismanage?'ismanage':'nomanage'">
-			<view style="width:35rpx;"></view><image class="programAvatar" :src="avatar"></image><view style="width:35rpx;"></view><view style="display: flex;flex-direction: column;justify-content: space-around;height:80%;flex:1 1 auto"><view>{{projectName}}</view><view>{{projectDescription}}</view></view>
+			<view style="width:35rpx;"></view>
+			<!-- <image class="programAvatar" :src="avatar"></image> -->
+			<image class="programAvatar" src="../../static/logo.png"></image>
+			<view style="width:35rpx;"></view><view style="display: flex;flex-direction: column;justify-content: space-around;height:80%;flex:1 1 auto;"><view><!-- {{projectName}} -->项目1</view><view><!-- {{projectDescription}} -->关于项目1的描述.</view></view>
 			<view style="width:30rpx;"></view>
-			<view @click="tomanage()" :class="ismanage?'ismanage':'nomanage'" class="iconfont icon-shujujiguanli" style="font-size: 80rpx;"></view>
+			<view @click="tomanage()" :class="ismanage?'ism':'nom'" class="iconfont icon-shujujiguanli" style="font-size: 80rpx;"></view>
 			<view style="width:60rpx;"></view>
 		</view>		
 		<view class="info">
-			<echarts v-if="!ismanage" :classDetailsadd="classDetails1" :classDetails="classDetails" :photoNumber="photoNumber" :classNumber="classNumber" :createTime="projectTime"></echarts>
+			<!-- <echarts v-if="!ismanage" :classDetailsadd="classDetails1" :classDetails="classDetails" :photoNumber="photoNumber" :classNumber="classNumber" :createTime="projectTime"></echarts> -->
+			<echarts v-if="!ismanage"></echarts>
 			<uni-transition style="width:100%;width:100%;" mode-class="fade" :duration="100" :show="ismanage">
-				<programImgManage style="width:100%;width:100%;" :typeone="typeone" :typetwo="typetwo" :typethree="typethree" :typefour="typefour" :isnew="isnew"></programImgManage>
+				<!-- <programImgManage style="width:100%;width:100%;" :typeone="typeone" :typetwo="typetwo" :typethree="typethree" :typefour="typefour" :isnew="isnew"></programImgManage> -->
+				<programImgManage style="width:100%;width:100%;"></programImgManage>
 			</uni-transition>
 		</view>
 	</view>
@@ -21,7 +26,7 @@
 		onLoad(){
 			//通过id请求得到项目的一些信息
 			this.currentProject=this.$store.state.currentProject;
-			this.getCollectionInfo();
+			// this.getCollectionInfo();
 		},
 		onShow() {
 			
@@ -50,9 +55,9 @@
 		methods: {
 			tomanage(){
 				this.ismanage=!this.ismanage;
-				if(this.ismanage){
-					this.getCollectionImg("其他垃圾");
-				}
+				// if(this.ismanage){
+				// 	this.getCollectionImg("其他垃圾");
+				// }
 			},
 			async getCollectionImg(val){
 				try{
@@ -292,13 +297,18 @@
 	
 	.ismanage{
 		color:#ffffff;
-		background-color: #000000;
+		background-color:#000000;
 	}
 	.nomanage{
-		color:#000000;
+		color:#555555;
 		background-image: url(../../static/bottom.png);
 		background-size: contain;
 	}
-	
+	.ism{
+		color:#ffffff;
+	}
+	.nom{
+		color:#000000;
+	}
 
 </style>
