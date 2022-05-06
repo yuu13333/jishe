@@ -96,6 +96,58 @@
             }
             
         }
+        ,{
+            "path" : "pages/taskDetail/taskDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/pushTask/pushTask",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+
+        ,{
+            "path" : "pages/datasetDetail/datasetDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/startWork/startWork",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/CutPhoto/CutPhoto",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		      "path": "uni_modules/buuug7-img-cropper/pages/cropper",
+		      "style": {
+		        "navigationBarTitleText": "图片裁剪"
+		      }
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

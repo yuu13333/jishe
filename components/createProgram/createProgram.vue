@@ -35,19 +35,31 @@
 				<button class="button bg-gradual-blue padding radius text-center shadow-blur" type="primary" @click="openDialog()"><view class="iconfont icon-tianjiaxiangmu1" style="font-size: 60rpx;"></view><view style="width:30rpx;"></view>创建个人项目</button>
 			</view>
 				<uni-popup ref="dialogInput" type="dialog">
-				<view style="width:580rpx;height: 600rpx;border-radius: 30rpx;text-align: center;line-height: 100rpx;display:flex;flex-direction: column; justify-content: space-between;align-items: center;overflow: hidden;background-color: #FFFFFF;">
+				<view style="width:680rpx;height: 1000rpx;border-radius: 10rpx;text-align: center;line-height: 100rpx;display:flex;flex-direction: column; justify-content: space-between;align-items: center;overflow: hidden;background-color: #FFFFFF;">
 				<view style="width:100%;flex:1 1 auto;display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
 				<view style="display: flex;color:#000000;"><view style="width:15rpx;"></view>创建项目</view>
 				<view style="height:20rpx;"></view>
-				<view style="width:100%;display: flex;justify-content: center;">
-					<input type="text" @input="onInputName" style="width: 80%;height:100rpx;border:1rpx solid #D8D8D8;border-radius: 40rpx;" placeholder="项目名称"/></view>
-				<view style="height:10rpx;"></view>
-				<view style="width:100%;display: flex;justify-content: center;">
-					<view style="width:80%;border:1rpx solid #D8D8D8;height:200rpx;border-radius: 40rpx;display: flex;justify-content: center;align-items: center;">
-					<view style="height:10rpx;"></view>
-					<scroll-view style="height:90%;width:80%;" scroll-y="true"><textarea @input="onInputDescription" style="width:100%;height:80%;" type="text" placeholder="项目描述" placeholder-style="top:50%;"/></scroll-view>
-					</view>
-				</view>
+				<!--表单开始-->
+				<uni-section title="基本用法" type="line" style="width:100%;display: flex;justify-content: center;align-items: center;height:90%;">
+			<view class="example">
+				<!-- 基础用法，不包含校验规则 -->
+				<uni-forms ref="baseForm" :modelValue="baseFormData">
+					<uni-forms-item label="项目名称" required>
+						<uni-easyinput @input="onInputName" v-model="baseFormData.name" placeholder="请输入项目名称" />
+					</uni-forms-item>
+					<uni-forms-item label="项目权限" required>
+						<uni-data-checkbox v-model="baseFormData.rights" multiple :localdata="rights" />
+					</uni-forms-item>
+					<uni-forms-item label="项目描述">
+						<uni-easyinput @input="onInputDescription" type="textarea" v-model="baseFormData.description" placeholder="请输入项目描述" />
+					</uni-forms-item>
+					<uni-forms-item label="项目类型" required>
+						<uni-data-checkbox v-model="baseFormData.types" multiple :localdata="types" />
+					</uni-forms-item>
+				</uni-forms>
+			</view>
+		</uni-section>
+				<!--表单结束-->
 				</view>
 				<view style="height:20rpx;"></view>
 				<view style="display: flex;width:100%;justify-content: space-between;border-top:1rpx solid #D8D8D8;"><button style="background-color: #1890FF;color:#FFFFFF;border-top:1rpx solid #1890FF;" @click="closeDialog()">取消</button><button style="background-color: #FFFFFF;color:#1890FF" @click="dialogInputConfirm()">确认</button></view>
@@ -82,11 +94,26 @@
 				value: '',
 				description:'',
 				isShowArr:false,
-				
+				baseFormData: {
+					name: '',
+					description: '',
+					rights:[3],
+					types:[4],
+				},
+				rights: [{"value": 0,"text": "私人"	},{"value": 1,"text": "团队"},{"value":2,"text":"公开"}],
+				types: [{"value": 0,"text": "图片分类"	},{"value": 1,"text": "目标检测"},{"value":2,"text":"图像分割"},{"value":2,"text":"文本分类"}],
 			};
 		},
 		
 		methods:{
+			checkboxChange1(e){
+				this.right=this.range1[e.detail.value].text;
+				console.log(this.right);
+			},
+			checkboxChange2(e){
+				this.type=this.range2[e.detail.value].text;
+				console.log(this.type);
+			},
 			scroll(e){
 			console.log("scroll");	
 			},
@@ -224,5 +251,8 @@
 	uni-popup:after{
 		border:none;
 	}
-
+	.example{
+		width:85%;
+		height:90%;
+	}
 </style>

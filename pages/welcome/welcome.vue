@@ -10,17 +10,19 @@
 			<image src="../../static/teambg.png" mode="widthFix" style="width:100%;"></image>
 		</view>
 		
-		<view class="welcome">
+		<view class="welcome" v-if="!islead">
 			<view style="width:30%;"></view>
-			<view style="width:40%;display: flex;align-items: center;justify-content: center;" :class="islead?'color':''">Welcome {{username}} !</view>
+			<view style="width:40%;display: flex;align-items: center;justify-content: center;">Welcome {{username}} !</view>
 			<view style="width:30%;height:100%;display: flex;align-items: center;justify-content: center;">
-			<dt-dropdown :list="list" :current="dropCurrent" @onClick="dropDownChange" :class="islead?'color':''"></dt-dropdown>
+			<dt-dropdown :list="list" :current="dropCurrent" @onClick="dropDownChange"></dt-dropdown>
 			</view>
 		</view>
 		<view class="content">
 			<!-- <uni-transition mode-class='fade' :duration="500"> -->
 			<uni-transition style="width:100%;width:100%;" mode-class="fade" :duration="500" :show="!isCreate&&!islead&&!isteam">
-			<classfication v-if="!isCreate&&!islead&&!isteam"></classfication>
+			<!--修改-->
+			<!-- <classfication v-if="!isCreate&&!islead&&!isteam"></classfication> -->
+			<taskCommunity v-if="!isCreate&&!islead&&!isteam"></taskCommunity>
 			</uni-transition>
 			<!-- <uni-transition style="width:100%;" mode-class="fade" :duration="500" :show="isCreate&&islog"> -->
 			<createProgram :programinfo="programInfo" v-if="isCreate&&islog&&!islead&&!isteam"></createProgram>
@@ -32,7 +34,7 @@
 			<noProgram v-if="!islog&&!islead&&isteam"></noProgram>
 			</uni-transition>
 			<uni-transition style="width:100%;width:100%;" mode-class="fade" :duration="500" :show="islead">
-			<leadStream v-if="islead"></leadStream>
+			<dataCommunity v-if="islead"></dataCommunity>
 			</uni-transition>
 			<uni-transition style="width:100%;width:100%;" mode-class="fade" :duration="500" :show="isteam&&islog">
 			<groupWork v-if="isteam&&islog"></groupWork>
@@ -50,24 +52,25 @@
 		      <text style="margin-bottom:-100rpx;font-size:20rpx;color:#303030;">创建项目</text>
 		    </view>
 		  </view>
+		  <view class="action navbar__item -yellow" @click="teamwork()">
+		     <view class="bar-icon">
+		       <view class="iconfont icon-shouye navbar__icon" style="font-size:40rpx;">
+		       </view>
+		     </view>
+		     <view class="-yellow bar-text">
+		       <text style="margin-bottom:-100rpx;font-size:20rpx;color:#303030;">团队协作</text>
+		     </view>
+		   </view>
 		  <view class="action navbar__item -blue" @click="classify()">
 		    <view class="bar-icon">
 		      <view class="iconfont icon-iconfontyouxihudong navbar__icon">
 		      </view>
 		    </view>
 		    <view class="-blue bar-text">
-		      <text style="margin-bottom:-100rpx;font-size:20rpx;color:#303030;">图片识别</text>
+		      <text style="margin-bottom:-100rpx;font-size:20rpx;color:#303030;">任务社区</text>
 		    </view>
 		  </view>
-		 <view class="action navbar__item -yellow" @click="teamwork()">
-		    <view class="bar-icon">
-		      <view class="iconfont icon-shouye navbar__icon" style="font-size:40rpx;">
-		      </view>
-		    </view>
-		    <view class="-yellow bar-text">
-		      <text style="margin-bottom:-100rpx;font-size:20rpx;color:#303030;">团队协作</text>
-		    </view>
-		  </view>
+		 
 		  <view class="action navbar__item -purple" @click="instruct()">
 		    <view class="bar-icon">
 		      <view class="iconfont icon-bangzhu navbar__icon" style="font-size:40rpx;">
@@ -75,7 +78,7 @@
 		      </view>
 		    </view>
 		    <view class="-purple bar-text">
-		      <text style="margin-bottom:-100rpx;font-size:20rpx;color:#303030;">功能导引</text>
+		      <text style="margin-bottom:-100rpx;font-size:20rpx;color:#303030;">数据社区</text>
 		    </view>
 		  </view>
 		</view>

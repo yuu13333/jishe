@@ -2,15 +2,27 @@
 	<view style="height:100vh" class="content template-login2">
 		<canvas canvas-id="star_canvas" class="mycanvas" style="width:750rpx;height:100vh;pointer-events: none;"></canvas>
 		<view class="sq" @click="camera()">
-			<view class="iconfont icon-cameraaddfill" style="font-size: 150rpx;"></view>
+			<view class="iconfont icon-cameraaddfill" style="font-size: 100rpx;"></view>
 			<view style="height:20rpx;"></view>
 			<view class="text">Camera</view>
 		</view>
 		<view style="height:100rpx;"></view>
 		<view class="sq" @click="album()">
-			<view class="iconfont icon-image-add-fill" style="font-size: 150rpx;"></view>
+			<view class="iconfont icon-image-add-fill" style="font-size: 100rpx;"></view>
 			<view style="height:20rpx;"></view>
 			<view class="text">Album</view>
+		</view>
+		<view style="height:100rpx;"></view>
+		<view class="sq" @click="album()">
+			<view class="iconfont icon-image-add-fill" style="font-size: 100rpx;"></view>
+			<view style="height:20rpx;"></view>
+			<view class="text">Label</view>
+		</view>
+		<view style="height:100rpx;"></view>
+		<view class="sq" @click="album()">
+			<view class="iconfont icon-image-add-fill" style="font-size: 100rpx;"></view>
+			<view style="height:20rpx;"></view>
+			<view class="text">Text</view>
 		</view>
 <!-- 		<view style="height:100rpx">
 			
@@ -222,8 +234,8 @@
 	}
 	
 	.sq{
-		width:350rpx;
-		height:350rpx;
+		width:250rpx;
+		height:250rpx;
 		border:1rpx solid #FFFFFF;
 		border-radius: 20rpx;
 		display: flex;
@@ -232,7 +244,7 @@
 		justify-content: center;
 		color:#FFFFFF;
 		background-color: rgba(255,255,255,0.2);
-		font-size: 40rpx;
+		font-size: 30rpx;
 	}
 	
 	

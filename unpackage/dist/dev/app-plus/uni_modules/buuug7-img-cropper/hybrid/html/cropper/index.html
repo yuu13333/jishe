@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>图片裁剪</title>
+    <link rel="stylesheet" href="cropper.min.css" />
+    <link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_3300683_wb3ia98r0ts.css">
+    <script src="cropper.min.js"></script>
+    <script src="uni.webview.1.5.2.js"></script>
+  </head>
+  <body>
+    <div class="file-upload-box">
+	  
+      <input
+        id="my-input"
+        type="file"
+        class="hidden-input"
+        accept="image/png, image/jpeg, image/webp"
+      />
+      <label for="my-input" class="input-label">+</label>
+    </div>
+
+    <div class="img-crop-area"></div>
+
+    <div class="previewAll">
+      <div class="preview"></div>
+      <div class="preview"></div>
+      <div class="preview"></div>
+      <div class="preview"></div>
+    </div>
+	<div style="height:15px;"></div>
+    <div style="display: flex;width:100%;justify-content: space-around;align-items: center;">
+		<i class="iconfont icon-juxingxuanze" style="color: #007AFF;" id="square"></i>
+		<i class="iconfont icon-radio-on" id="ball"></i>
+		<i class="iconfont icon-gangbi" id="pen"></i>
+      <button class="btn disabled" style="color: #FFFFFF;background-color: #007AFF;" id="circle">切换形状</button>
+	  <button class="btn disabled" style="color: #FFFFFF;background-color: #007AFF;" id="save">确定裁剪</button>
+    </div>
+	<div style="height:15px;"></div>
+	<div style="min-height: 10px;width:100%;border-top:1px solid #007AFF;" id="showArea">
+		<image src="./static/noImg.png" style="width: 100%;"></image>
+	</div>
+	
+
+    <script src="index.js"></script>
+  </body>
+</html>

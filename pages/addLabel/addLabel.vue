@@ -155,7 +155,7 @@
 				imgurls:[],
 				imglabels:null,
 				imgurl:"",
-				type:"有害垃圾",
+				type:"可回收垃圾",
 				son:"塑料瓶",
 				index:0,
 				xdistance:0,

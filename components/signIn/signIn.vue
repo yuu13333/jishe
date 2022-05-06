@@ -34,6 +34,10 @@
 			</view>
 		</view>
 		<view style="height:30rpx;"></view>
+		<view>
+			<uni-data-checkbox v-model="value" :localdata="range" @change="checkboxChange"></uni-data-checkbox>
+		</view>
+		<view style="height:30rpx;"></view>
 		<view class="tip" @click="toOffLine()">
 			点击此处进入游客模式体验服务。
 		</view>
@@ -54,9 +58,16 @@
 				spwd:"",
 				repwd:"",
 				isvalid:false,
+				value: 0,
+				range: [{"value": 0,"text": "客户"	},{"value": 1,"text": "普通用户"}],
+				role:"",
 			};
 		},
 		methods:{
+			checkboxChange(e){
+				this.role=this.range[e.detail.value].text;
+				console.log(this.role);
+			},
 			toOffLine(){
 				this.$store.commit("offline");
 				uni.navigateTo({
